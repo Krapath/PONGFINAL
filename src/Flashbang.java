@@ -42,7 +42,7 @@ public class Flashbang extends PowerUp {
 	 */
 	public void use(int user) {
 		if (canUse()) {
-			SoundEffects.play("SFX/FlashbangSFX.wav", -20f);
+			SoundEffects.play("SFX/FlashbangSFX.wav", -30f);
 			startFlash();
 			performAbility();
 		}

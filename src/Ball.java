@@ -23,7 +23,7 @@ public class Ball extends GameObject {
 	//TODO: remember 2 sounds
 	private double speedScale = 1.0; // current speed multiplier
 	private static final double EASE = 0.4; // rate at which it eases
-	private static final double SLOW_SCALE = 0.5; // speed while slowed, 0.5 is half
+	private static final double SLOW_SCALE = 0.4; // speed while slowed, 0.5 is half
 	private boolean slowed = false;
 	private double xLeftover = 0; // leftover pixels to deal with integer division
 	private double yLeftover = 0;

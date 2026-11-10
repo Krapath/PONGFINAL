@@ -25,7 +25,7 @@ public class Pong extends Game {
 	private static final int GOAL_WIDTH = 10;
 	private static final int PADDLE_MARGIN = 15;
 	private static final int BALL_SIZE = 20;
-	private static final int WINNING_SCORE = 5;
+	private static final int WINNING_SCORE = 5; // change for testing right now
 	private static final int SCORE_DELAY = 25; // roughly 0.75 second delay
 	private static final int INDEFINITE = -1;
 	private static final int SPAWN_ODDS = 300; // 1 in 300 each frame, about once every 10 seconds
@@ -237,11 +237,11 @@ public class Pong extends Game {
 		if (p1Score == WINNING_SCORE) {
 			display.showWinner("Player 1 wins!", Color.RED, winnerFont);
 			b.setVisible(false);
-			stopGame();
+			pause(INDEFINITE);
 		} else if (p2Score == WINNING_SCORE) {
 			display.showWinner("Player 2 wins!", Color.BLUE, winnerFont);
 			b.setVisible(false);
-			stopGame();
+			pause(INDEFINITE);
 		} else { // if not winning, pause for score delay
 			pause(SCORE_DELAY);
 		}

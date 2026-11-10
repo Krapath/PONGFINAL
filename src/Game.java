@@ -28,7 +28,7 @@ import javax.swing.Timer;
  * An abstract Game class which can be built into Pong.<br>
  * <br>
  * The default controls are for "Player 1" to move left and right with the 
- * 'Z' and 'X' keys, and "Playr 2" to move left and right with the 'N' and
+ * 'Z' and 'X' keys, and "Player 2" to move left and right with the 'N' and
  * 'M' keys.<br>
  * <br>
  * Before the Game begins, the <code>setup</code> method is executed. This will

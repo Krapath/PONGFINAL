@@ -95,7 +95,7 @@ public class TimeStop extends PowerUp {
             delay((frames.length - 5) * FRAME_MS, () -> {// remember change magic number
                 animating = false;
                 //SoundEffects.play("SFX/Timestop SE.wav", -20f);
-                SoundEffects.play("SFX/TimestopSFX2.wav", -15f);
+                SoundEffects.play("SFX/TimestopSFX2.wav", -5f);
                 super.performAbility(user);
             });
             

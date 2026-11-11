@@ -20,7 +20,7 @@ public class MainMenu extends JPanel implements ActionListener {
 	private static final int BUTTON_HEIGHT = 100;
 	private static final int BUTTON_FONT_SIZE = 48;
 	private static final int MARGIN = 50; // space between the logo and buttons
-	private JButton startButton = new JButton("START");
+	private JButton playButton = new JButton("START");
 	private JButton exitButton = new JButton("EXIT");
 	private JButton instructionsButton = new JButton("INSTRUCTIONS");
 	Pong game;
@@ -51,8 +51,8 @@ public class MainMenu extends JPanel implements ActionListener {
 		int scaledMargin = (int) ((double) MARGIN * windowHeight / REF_HEIGHT);
 		int scaledFontSize = (int) ((double) BUTTON_FONT_SIZE * windowHeight / REF_WIDTH);
 		Font scaledFont = new Font("Monospaced", Font.BOLD, scaledFontSize);
-
-		startButton.setFont(scaledFont);
+		
+		playButton.setFont(scaledFont);
 		exitButton.setFont(scaledFont);
 		instructionsButton.setFont(scaledFont);
 		// set location and size of logo and buttons (centered horizontally and offset from the center vertically)
@@ -65,7 +65,7 @@ public class MainMenu extends JPanel implements ActionListener {
 				scaledLogoHeight
 			);
 		
-		startButton.setBounds(
+		playButton.setBounds(
 			windowWidth / 2 - scaledButtonWidth / 2, 
 			windowHeight / 3,
 			scaledButtonWidth, 
@@ -86,35 +86,45 @@ public class MainMenu extends JPanel implements ActionListener {
 			scaledButtonHeight
 		);
 
-		add(startButton);
+		add(playButton);
 		add(instructionsButton);
 		add(exitButton);
 		
 
 		
 		add(logo);
-
 		
-		startButton.addActionListener(this);
+		playButton.addActionListener(this);
 		exitButton.addActionListener(this);
 		instructionsButton.addActionListener(this);
 		
 		
 	}
 	
+	public void replay(){
+	}
 	
 	/*
 	 * override method from ActionListener
 	 */
 	public void actionPerformed(ActionEvent e) {
 		
-		if (e.getSource() == startButton) {
+		if (e.getSource() == playButton) {
 			setVisible(false);
-			startButton.setFocusable(false); // stop the button from holding focus
+			playButton.setFocusable(false); // stop the button from holding focus
 			instructionsButton.setFocusable(false);
 			exitButton.setFocusable(false);
 			game.start();
 		} else if (e.getSource() == instructionsButton) {
+			ImageIcon image = new ImageIcon("SPRITES/Pong.png");
+			JLabel howTo = new JLabel(image);			
+			
+			// stop the button from holding focus
+			JOptionPane.showMessageDialog(null,howTo,"Instructions",JOptionPane.PLAIN_MESSAGE);
+			playButton.setFocusable(false); 
+			instructionsButton.setFocusable(false);
+			exitButton.setFocusable(false);
+			
 		} else if (e.getSource() == exitButton) {
 			System.exit(0);
 		}

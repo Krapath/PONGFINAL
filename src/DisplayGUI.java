@@ -10,7 +10,7 @@ import javax.swing.*;
 public class DisplayGUI extends JPanel {
 
 	private JLabel scoreLabel;
-	private JLabel winnerLabel;
+	private JLabel popUpLabel;
 	private static final int REF_WIDTH = 1600; 
 	private static final int REF_HEIGHT = 900; 
 	private static final int SCORE_FONT_SIZE = 50; // pixels on the reference screen
@@ -27,17 +27,17 @@ public class DisplayGUI extends JPanel {
 		setVisible(true);
 		setBounds(0, 0, windowWidth, windowHeight);
 
-		scoreLabel = new JLabel("PLAYER 1 | 0 : 0 | PLAYER 2", JLabel.CENTER);
+		scoreLabel = new JLabel("<html><font color='red'>PLAYER 1</font> | 0 : 0 | <font color='blue'>PLAYER 2</font></html>", JLabel.CENTER);
 		scoreLabel.setForeground(Color.WHITE);
 		scoreLabel.setFont(new Font("Courier New", Font.BOLD, SCORE_FONT_SIZE * windowHeight / REF_HEIGHT));		
 		scoreLabel.setBounds(0, 0, windowWidth, windowHeight / 8);
 		add(scoreLabel);
 
 		// at center of entire screen
-		winnerLabel = new JLabel("", JLabel.CENTER);
-		winnerLabel.setBounds(0, 0, windowWidth, windowHeight);
-		winnerLabel.setVisible(false);
-		add(winnerLabel);
+		popUpLabel = new JLabel("", JLabel.CENTER);
+		popUpLabel.setBounds(0, 0, windowWidth, windowHeight);
+		popUpLabel.setVisible(false);
+		add(popUpLabel);
 
 	}
 
@@ -48,7 +48,7 @@ public class DisplayGUI extends JPanel {
 	 * @param p2Score the current score of player 2
 	 */
 	public void updateScore(int p1Score, int p2Score) {
-		scoreLabel.setText("PLAYER 1 | " + p1Score + " : " + p2Score + " | PLAYER 2");
+		scoreLabel.setText("<html><font color='red'>PLAYER 1</font> | " + p1Score + " : " + p2Score + " | <font color='blue'>PLAYER 2</font></html>");
 	}
 
 	/**
@@ -58,11 +58,11 @@ public class DisplayGUI extends JPanel {
 	 * @param c    the color of the text
 	 * @param f    the font of the text
 	 */
-	public void showWinner(String text, Color c, Font f) {
-		winnerLabel.setText(text);
-		winnerLabel.setForeground(c);
-		winnerLabel.setFont(f);
-		winnerLabel.setVisible(true);
+	public void showPopup(String text, Color c, Font f) {
+		popUpLabel.setText(text);
+		popUpLabel.setForeground(c);
+		popUpLabel.setFont(f);
+		popUpLabel.setVisible(true);
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class DisplayGUI extends JPanel {
 	 * wins)
 	 */
 	public void hideMessage() {
-		winnerLabel.setVisible(false);
+		popUpLabel.setVisible(false);
 	}
 
 }

@@ -3,9 +3,7 @@ import java.awt.*;
 
 public class BigPaddle extends PowerUp {
 	private static final int DURATION = 7500; // ability duration in ms
-	private static final int COOLDOWN = 10; // cooldown in ms not aplicable for this ability
-	private static final int REF_WIDTH = 1600; 
-	private static final int REF_HEIGHT = 900;
+
 
 
 	/**

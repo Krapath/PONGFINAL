@@ -210,8 +210,6 @@ public class Ball extends GameObject {
 		setX(getX() + stepX);
 		setY(getY() + stepY);
 
-		System.out.println(ownership);
-
 	}
 
 }

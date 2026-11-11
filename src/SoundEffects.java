@@ -8,6 +8,10 @@ import javax.sound.sampled.*;
  */
 public class SoundEffects {
 
+	/**
+	 * @param fileName, the name of the audio file
+	 * @param volume, the volume of the audio file
+	 */
     public static void play(String fileName, float volume) {
         // use try to make sure that it closes
         try (AudioInputStream audio = AudioSystem.getAudioInputStream(new File(fileName))) {

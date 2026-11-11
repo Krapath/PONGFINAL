@@ -5,14 +5,15 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.Timer;
+import java.util.ArrayList;
 
 /**
  * Timed ability with a duration in milliseconds. It runs on its own timers, so
  * nothing needs to call it every frame. Each power also has an icon, which is
  * shown on the pickup orb.
  * <p>
- * An ability can either belong to a player (use the methods that take a user) or
- * be global and affect the whole game (use the methods without a user).
+ * An ability can either belong to a player (use the methods that take a user)
+ * or be global and affect the whole game (use the methods without a user).
  * Author: Hugo To
  */
 public class PowerUp {
@@ -23,10 +24,12 @@ public class PowerUp {
 	// how long the ability lasts, in milliseconds
 	protected int maxDuration;
 
-	// whether the ability is currently active for each player, index 1 and 2 are the players
+	// whether the ability is currently active for each player, index 1 and 2 are
+	// the players
 	protected boolean[] isActive = new boolean[PLAYERS + 1];
 	// whether a global ability is currently active
 	protected boolean globalActive = false;
+	private ArrayList<Timer> timers = new ArrayList<Timer>();
 
 	// picture shown on the pickup orb for this power
 	protected Image icon;
@@ -167,15 +170,22 @@ public class PowerUp {
 	}
 
 	public void endPower() {
-	    for (int i = 0; i < isActive.length; i++) {
-	        isActive[i] = false;
-	    }
-	    globalActive = false;
-	    if (animationLabel != null) {
-	        animationLabel.setVisible(false);
-	    }
+		for (int i = 0; i < isActive.length; i++) {
+			isActive[i] = false;
+		}
+		// clear and stop all timers
+		// without stopping the timers/removing the, existing abilities timers would be running even if its not doing anything
+		for (Timer t : timers) {
+			t.stop();
+		}
+		timers.clear();
+
+		globalActive = false;
+		if (animationLabel != null) {
+			animationLabel.setVisible(false);
+		}
 	}
-	
+
 	/**
 	 * called when a global ability duration ends
 	 */
@@ -190,8 +200,18 @@ public class PowerUp {
 	 * @param action the code to run when the wait is over
 	 */
 	public void delay(int ms, Runnable action) {
-		Timer t = new Timer(ms, e -> action.run());
-		t.setRepeats(false); // fire once, not over and over
+		Timer t = new Timer(ms, null);
+		// https://stackoverflow.com/questions/29441968/how-does-addactionlistenere-work-is-it-better-than-an-actionlistener
+
+		// in order to make sure we can remove the timer, we need to add the action
+		// listener AFTER it is initialized so it can make a reference to itself to remove from the arraylist
+		// the importance of removing timer is that otherwise a new timer object that is dead will be created
+		
+		t.addActionListener(e -> {
+			timers.remove(t);
+			action.run();
+		});
+		t.setRepeats(false); // do it only once once, not over and over
 		t.start();
 	}
 }

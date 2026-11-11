@@ -19,7 +19,9 @@ public class Paddle extends GameObject {
 	private boolean frozen = false;
 	public boolean paused;
 	private boolean enlarged = false;
+	private boolean shrunk = false;
 	private static double ENLARGED_SCALE = 1.5;
+	private static double  SHRUNK_SCALE= 0.75;
 	private double sizeScale = 1.0; //base size scale
 	private static final double EASE = 0.4; // rate at which it eases
 	private int baseWidth;
@@ -54,6 +56,9 @@ public class Paddle extends GameObject {
 	}
 	public void setEnlarged(boolean e) {
 		enlarged = e;
+	}
+	public void setShrunk(boolean s) {
+		shrunk = s;
 	}
 	/**
 	 * Moves the paddle by the speed value upward and changes state to moving up
@@ -102,7 +107,11 @@ public class Paddle extends GameObject {
 		if (enlarged) {
 			target = ENLARGED_SCALE;
 		}
+		if (shrunk) {
+			target = SHRUNK_SCALE;
+		}
 		// ease the current scale toward the target
+		
 		sizeScale += (target - sizeScale) * EASE;
 		
 		// resize from the base size, but make sure its centered properly

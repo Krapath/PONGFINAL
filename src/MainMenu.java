@@ -101,7 +101,9 @@ public class MainMenu extends JPanel implements ActionListener {
 		
 	}
 	
-	public void replay(){
+	public void showMenu() {
+		setVisible(true);
+		repaint();
 	}
 	
 	/*
@@ -116,10 +118,11 @@ public class MainMenu extends JPanel implements ActionListener {
 			exitButton.setFocusable(false);
 			game.start();
 		} else if (e.getSource() == instructionsButton) {
-			ImageIcon image = new ImageIcon("SPRITES/Pong.png");
+			ImageIcon image = new ImageIcon("MENU/Tutorial.png");
 			JLabel howTo = new JLabel(image);			
-			
-			// stop the button from holding focus
+			UIManager.put("OptionPane.background", Color.black);
+			UIManager.put("OptionPane.messageForeground", Color.WHITE);
+			UIManager.put("Panel.background",Color.black);			// stop the button from holding focus
 			JOptionPane.showMessageDialog(null,howTo,"Instructions",JOptionPane.PLAIN_MESSAGE);
 			playButton.setFocusable(false); 
 			instructionsButton.setFocusable(false);

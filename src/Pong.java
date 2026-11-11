@@ -19,19 +19,27 @@ public class Pong extends Game {
 
 	private static final int REF_WIDTH = 1600; // the screen size the pixel values are written for
 	private static final int REF_HEIGHT = 900;
-	private static final int DELAY_TIME = 30;
+	private static final int DELAY_TIME = 25;
 	private static final int PADDLE_WIDTH = 30;
 	private static final int PADDLE_HEIGHT = 200;
 	private static final int GOAL_WIDTH = 10;
 	private static final int PADDLE_MARGIN = 15;
 	private static final int BALL_SIZE = 20;
 	private static final int WINNING_SCORE = 5; // change for testing right now
-	private static final int SCORE_DELAY = 25; // roughly 0.75 second delay
+	private static final int SCORE_DELAY = 50; // roughly 1.5 second delay
 	private static final int INDEFINITE = -1;
-	private static final int SPAWN_ODDS = 300; // 1 in 300 each frame, about once every 10 seconds
+	private static final int SPAWN_ODDS = 5; // 1 in 10 each frame, about instant
 	private static final int PICKUP_SIZE = 75;
 	private static final int WINNER_FONT_SIZE = 50;
-	private Font winnerFont;
+	private static final int MESSAGE_HIDE_FRAMES = 8;
+	private static final float SCORE_VOLUME = -15f;
+	private static final String MENU_TEXT = "Press P to return to menu";
+	// to prevent p from constantly pausing and unpausing
+	private boolean pHeld = false;
+	// state for when game is over
+	private boolean gameOver = false;
+
+	private Font popUpFont;
 
 	private Random rand = new Random();
 
@@ -56,6 +64,8 @@ public class Pong extends Game {
 	private BigPaddle bigPaddle;
 	private Shield shield;
 	private Flashbang flashbang;
+	private SmallPaddle smallPaddle;
+
 	private Glitch glitch;
 
 	private MainMenu menu;
@@ -80,12 +90,16 @@ public class Pong extends Game {
 	 * not paused. Handles movement of paddles, scoring, paddle bounds, and etc.
 	 */
 	public void act() {
-
+		pauseKey();
 		if (state == GameState.PAUSED) {
 			if (pauseTimer != INDEFINITE) {
 				pauseTimer--;
+				if (pauseTimer == MESSAGE_HIDE_FRAMES) {
+					display.hideMessage();
+				}
 				if (pauseTimer <= 0) {
 					resume();
+					b.setVisible(true);
 				}
 			}
 			return;
@@ -163,9 +177,17 @@ public class Pong extends Game {
 
 		if (b.collides(p1)) {
 			b.bounceRight(p1.getY(), p1.getHeight(), p1.getState());
+			//TODO: DOESNT QUITE WORK
+			if(b.getX()<p1.getX()+PADDLE_WIDTH) {
+				b.setX(PADDLE_MARGIN+PADDLE_WIDTH); 
+			}
 		}
 		if (b.collides(p2)) {
 			b.bounceLeft(p2.getY(), p2.getHeight(), p2.getState());
+			//TODO: DOESNT QUITE WORK
+			if(b.getX()>p1.getX()) {
+				b.setX(getFieldWidth()-(PADDLE_MARGIN+PADDLE_WIDTH)); 
+			}
 		}
 
 		// scoring and when shielded
@@ -225,25 +247,51 @@ public class Pong extends Game {
 	public void score(int player) {
 		if (player == 1) {
 			p1Score++;
+			b.setVisible(false);
 			b.serveRight();
+			display.showPopup("Player 1 Scores!", Color.RED, popUpFont);
+
+			if (p1Score != WINNING_SCORE) {
+				SoundEffects.play("SFX/ScorePoint.wav", SCORE_VOLUME);
+			}
+			pause(SCORE_DELAY);
+
 		} else if (player == 2) {
 			p2Score++;
+			b.setVisible(false);
 			b.serveLeft();
+			display.showPopup("Player 2 Scores!", Color.BLUE, popUpFont);
+			if (p2Score != WINNING_SCORE) {
+				SoundEffects.play("SFX/ScorePoint.wav", SCORE_VOLUME);
+			}
+
+			pause(SCORE_DELAY);
+
 		}
 		display.updateScore(p1Score, p2Score);
 		resetPositions();
 		resetAllEffects();
 		/// winning conditions MAYBE MAKE DISPLAY HOLD THE FONT
 		if (p1Score == WINNING_SCORE) {
-			display.showWinner("Player 1 wins!", Color.RED, winnerFont);
+
+			// https://stackoverflow.com/questions/6635730/how-do-i-put-html-in-a-jlabel-in-java
+			display.showPopup("<html><center>Player 1 wins!<br>" + MENU_TEXT + "</center></html>", Color.RED,
+					popUpFont);
 			b.setVisible(false);
 			pause(INDEFINITE);
+
+			SoundEffects.play("SFX/Winner!.wav", SCORE_VOLUME);
+			gameOver = true;
+
 		} else if (p2Score == WINNING_SCORE) {
-			display.showWinner("Player 2 wins!", Color.BLUE, winnerFont);
+			display.showPopup("<html><center>Player 2 wins!<br>" + MENU_TEXT + "</center></html>", Color.BLUE,
+					popUpFont);
 			b.setVisible(false);
 			pause(INDEFINITE);
-		} else { // if not winning, pause for score delay
-			pause(SCORE_DELAY);
+			SoundEffects.play("SFX/Winner!.wav", SCORE_VOLUME);
+
+			gameOver = true;
+
 		}
 
 	}
@@ -288,11 +336,14 @@ public class Pong extends Game {
 		resume();
 		// TODO: FIND A BETTER FIX MAYBE?
 		setFocusable(true);
+		// IN ORDER
+		// https://stackoverflow.com/questions/31971277/button-remains-focused-after-clicking
 		requestFocusInWindow();
 		p1.setVisible(true);
 		p2.setVisible(true);
 		b.setVisible(true);
 		display.setVisible(true);
+
 	}
 
 	public void createGame() {
@@ -312,7 +363,7 @@ public class Pong extends Game {
 
 		b = new Ball(BALL_SIZE, BALL_SIZE, width, height);
 
-		winnerFont = new Font("Courier New", Font.BOLD, WINNER_FONT_SIZE * height / REF_HEIGHT);
+		popUpFont = new Font("Courier New", Font.BOLD, WINNER_FONT_SIZE * height / REF_HEIGHT);
 
 		display = new DisplayGUI(width, height);
 		add(display);
@@ -322,6 +373,7 @@ public class Pong extends Game {
 		add(theWorld.getAnimationLabel());
 
 		bigPaddle = new BigPaddle();
+		smallPaddle = new SmallPaddle();
 		shield = new Shield();
 
 		flashbang = new Flashbang(width, height);
@@ -330,7 +382,7 @@ public class Pong extends Game {
 		add(flashbang.getAnimationLabel());
 		getContentPane().setComponentZOrder(flashbang.getAnimationLabel(), 0);
 
-		powers = new PowerUp[] { glitch, theWorld, flashbang, bigPaddle, shield };
+		powers = new PowerUp[] { glitch, theWorld, flashbang, bigPaddle, shield,smallPaddle };
 
 		resetPositions();
 
@@ -366,7 +418,8 @@ public class Pong extends Game {
 
 		p1.setEnlarged(bigPaddle.isEnlarged(1));
 		p2.setEnlarged(bigPaddle.isEnlarged(2));
-
+		p1.setShrunk(smallPaddle.isShrunk(1));
+		p2.setShrunk(smallPaddle.isShrunk(2));
 		barrier1.setShielded(shield.isShielded(1));
 		barrier2.setShielded(shield.isShielded(2));
 	}
@@ -393,6 +446,51 @@ public class Pong extends Game {
 		p2.setFrozen(false);
 		barrier1.setShielded(false);
 		barrier2.setShielded(false);
+	}
+
+	/**
+	 * Puts everything back to a fresh game and shows the main menu again.
+	 */
+	public void returnToZero() {
+		p1Score = 0;
+		p2Score = 0;
+		gameOver = false;
+		display.updateScore(p1Score, p2Score);
+		display.hideMessage();
+		b.serveRight();
+		resetPositions();
+		resetAllEffects();
+		stop();
+		menu.showMenu();
+	}
+
+	/**
+	 * P pauses and resumes during play, and returns to the menu after a win. Does
+	 * nothing while the menu is showing.
+	 */
+	private void pauseKey() {
+		if (menu.isVisible()) {
+			return;
+		}
+		if (!PKeyPressed()) {
+			pHeld = false;
+			return;
+		}
+		if (pHeld) {
+			return;
+		}
+
+		pHeld = true;
+
+		if (gameOver) {
+			returnToZero();
+		} else if (state == GameState.PAUSED && pauseTimer == INDEFINITE) {
+			display.hideMessage();
+			resume();
+		} else if (state == GameState.PLAYING) {
+			display.showPopup("PAUSED", Color.WHITE, popUpFont);
+			pause(INDEFINITE);
+		}
 	}
 
 	/**

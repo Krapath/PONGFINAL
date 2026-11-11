@@ -103,6 +103,10 @@ public class TimeStop extends PowerUp {
         }
     }
     
+    public void endPower() {
+    	super.endPower();
+    	animating = false;
+    }
 
 }
 

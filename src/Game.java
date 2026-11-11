@@ -70,6 +70,12 @@ public abstract class Game extends JFrame {
 	 */
 	private boolean p2Right = false;
 	
+	
+	private boolean pKey = false;
+
+	public boolean PKeyPressed() {
+		return pKey;
+	}
 	/**
 	 * Returns <code>true</code> if the 'Z' key is being pressed down
 	 * 
@@ -264,6 +270,8 @@ public abstract class Game extends JFrame {
 					case 'X' : p1Right = true; break;
 					case 'N' : p2Left = true; break;
 					case 'M' : p2Right = true; break;
+					case 'P' : pKey = true; break;
+
 				}
 			}
 	
@@ -274,6 +282,7 @@ public abstract class Game extends JFrame {
 					case 'X' : p1Right = false; break;
 					case 'N' : p2Left = false; break;
 					case 'M' : p2Right = false; break;
+					case 'P' : pKey = false; break;
 					case 27 : System.exit(0);
 				}
 			}

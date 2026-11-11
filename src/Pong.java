@@ -178,16 +178,12 @@ public class Pong extends Game {
 		if (b.collides(p1)) {
 			b.bounceRight(p1.getY(), p1.getHeight(), p1.getState());
 			//TODO: DOESNT QUITE WORK
-			if(b.getX()<p1.getX()+PADDLE_WIDTH) {
-				b.setX(PADDLE_MARGIN+PADDLE_WIDTH); 
-			}
+
 		}
 		if (b.collides(p2)) {
 			b.bounceLeft(p2.getY(), p2.getHeight(), p2.getState());
-			//TODO: DOESNT QUITE WORK
-			if(b.getX()>p1.getX()) {
-				b.setX(getFieldWidth()-(PADDLE_MARGIN+PADDLE_WIDTH)); 
-			}
+			//TODO: DOESNT QUITE WORK 
+
 		}
 
 		// scoring and when shielded

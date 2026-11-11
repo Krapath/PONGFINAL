@@ -110,6 +110,10 @@ public class Paddle extends GameObject {
 		if (shrunk) {
 			target = SHRUNK_SCALE;
 		}
+		
+		if (shrunk && enlarged){
+			target = ENLARGED_SCALE * SHRUNK_SCALE;
+		}
 		// ease the current scale toward the target
 		
 		sizeScale += (target - sizeScale) * EASE;

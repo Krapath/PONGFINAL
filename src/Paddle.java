@@ -1,16 +1,12 @@
 
-
-
 /**
- * Author: Hugo To
- * November 5, 2026
- * A paddle that is to be controlled by a player, extends GameObject.
- * Paddles can only move up and down, the paddle itself does not read the keyboard, only the Pong class does
+ * Author: Hugo To November 5, 2026 A paddle that is to be controlled by a
+ * player, extends GameObject. Paddles can only move up and down, the paddle
+ * itself does not read the keyboard, only the Pong class does
  */
 public class Paddle extends GameObject {
 	// speed value of paddle
-	
-	
+
 	private static final int REF_WIDTH = 1600; // the screen size the pixel values are written for
 	private static final int REF_HEIGHT = 900;
 	private static final int SPEED = 15; // reference speed
@@ -21,45 +17,61 @@ public class Paddle extends GameObject {
 	private boolean enlarged = false;
 	private boolean shrunk = false;
 	private static double ENLARGED_SCALE = 1.5;
-	private static double  SHRUNK_SCALE= 0.75;
-	private double sizeScale = 1.0; //base size scale
+	private static double SHRUNK_SCALE = 0.75;
+	private double sizeScale = 1.0; // base size scale
 	private static final double EASE = 0.4; // rate at which it eases
 	private int baseWidth;
 	private int baseHeight;
+
 	// three states of paddle can be moving
 	public enum PaddleState {
-	    IDLE,
-	    MOVING_UP,
-	    MOVING_DOWN
+		IDLE, MOVING_UP, MOVING_DOWN
 	}
-	
-	
+
 	/**
-	 * Creates an idle paddle of the provided size
+	 * Creates an idle paddle of the provided size, with scaled speed and size values
 	 *
 	 * @param w the width of the paddle in pixels
 	 * @param h the height of the paddle in pixels
 	 */
-	 
+
 	public Paddle(int w, int h, int windowWidth, int windowHeight) {
-		//store base sizes
+		// store base sizes
 		baseWidth = w * windowWidth / REF_WIDTH;
-        baseHeight = h * windowHeight / REF_HEIGHT;
-        
+		baseHeight = h * windowHeight / REF_HEIGHT;
+
 		setSize(w * windowWidth / REF_WIDTH, h * windowHeight / REF_HEIGHT);
 		// make sure its never 0
-		realSpeed = Math.max(1, (int) Math.round(SPEED * ((double) windowHeight / REF_HEIGHT)));		
+		realSpeed = Math.max(1, (int) Math.round(SPEED * ((double) windowHeight / REF_HEIGHT)));
 	}
 
+	/**
+	 * Sets the frozen state of the paddle.
+	 * 
+	 * @param f a boolean value that comes from powerup
+	 */
 	public void setFrozen(boolean f) {
 		frozen = f;
 	}
+
+	/**
+	 * Sets the enlarged state of the paddle.
+	 * 
+	 * @param e a boolean value that comes from powerup
+	 */
 	public void setEnlarged(boolean e) {
 		enlarged = e;
 	}
+
+	/**
+	 * Sets the shrunk state of the paddle.
+	 * 
+	 * @param s a boolean value that comes from powerup
+	 */
 	public void setShrunk(boolean s) {
 		shrunk = s;
 	}
+
 	/**
 	 * Moves the paddle by the speed value upward and changes state to moving up
 	 */
@@ -70,7 +82,7 @@ public class Paddle extends GameObject {
 		setY(getY() - realSpeed);
 		state = PaddleState.MOVING_UP;
 	}
-	
+
 	/**
 	 * Moves the paddle by the speed value downward and changes state to moving down
 	 */
@@ -82,50 +94,59 @@ public class Paddle extends GameObject {
 		state = PaddleState.MOVING_DOWN;
 
 	}
-	
+
 	/**
 	 * Changes state to idle
 	 */
 	public void idle() {
-        state = PaddleState.IDLE;
-    }
- 
+		state = PaddleState.IDLE;
+	}
+
 	/**
-	 * Gets what the paddle is doing in the current frame.
-	 *
-	 * returns PaddleState
+	 * Gets what the paddle is doing in the current frame. returns PaddleState
 	 */
 	public PaddleState getState() {
 		return state;
 	}
-	
+
 	public void act() {
-		if(paused) {
+		if (paused) {
 			return;
 		}
+		// base size value set at 1 under normal condition
 		double target = 1.0;
+
+		// set the target values for size
 		if (enlarged) {
 			target = ENLARGED_SCALE;
 		}
 		if (shrunk) {
 			target = SHRUNK_SCALE;
 		}
-		
-		if (shrunk && enlarged){
+
+		// averages the two scale values when both active, as of currently
+		// when both are active the paddle is slightly larger
+		if (shrunk && enlarged) {
 			target = ENLARGED_SCALE * SHRUNK_SCALE;
 		}
-		// ease the current scale toward the target
-		
+
+		// ease the current scale toward the target rather than instantly change size.
+		// Additionally, by having the scale be a constantly updating value, it
+		// scales nonlinearly, making it more smooth. sizeScale will always be locked to
+		// target. This method also allows sizeScale to work in both the positive and
+		// negative direction. For example, target is 0.5, 1 += (0.5-1)*EASE, the right
+		// side ends up being negative and size scale still decreases.
 		sizeScale += (target - sizeScale) * EASE;
-		
-		// resize from the base size, but make sure its centered properly
+
+		// save the old center x and center y so that even after resize it remains the
+		// same relative center, additionally makes the growth look more equal
 		int centerX = getX() + getWidth() / 2;
-	    int centerY = getY() + getHeight() / 2;
-	    
+		int centerY = getY() + getHeight() / 2;
+
+		// set the size of the paddle based on size scale
 		setSize((int) (baseWidth * sizeScale), (int) (baseHeight * sizeScale));
+		// always set their center to the same place
 		setX(centerX - getWidth() / 2);
-	    setY(centerY - getHeight() / 2);
+		setY(centerY - getHeight() / 2);
 	}
 }
- 
-	

@@ -11,7 +11,7 @@ public class Ball extends GameObject {
 
 	// symbolic constants
 	// the screen size the pixel values are written for
-	private static final int REF_WIDTH = 1600; 
+	private static final int REF_WIDTH = 1600;
 	private static final int REF_HEIGHT = 900;
 	private static final int SPEED = 20;
 	private static final int MAX_SPEED = 40;
@@ -20,7 +20,7 @@ public class Ball extends GameObject {
 	private static final int PADDLE_MOTION_BONUS = 4;
 	private static final int REFLECTION_BONUS = 1;
 	private static final float SOUND_VOLUME = -30f;
-	//TODO: remember 2 sounds
+	// TODO: remember 2 sounds
 	private double speedScale = 1.0; // current speed multiplier
 	private static final double EASE = 0.4; // rate at which it eases
 	private static final double SLOW_SCALE = 0.4; // speed while slowed, 0.5 is half
@@ -48,13 +48,17 @@ public class Ball extends GameObject {
 	}
 
 	/**
-	 * Tells the ball to ease down to slow speed (true) or back up to normal speed
-	 * (false).
+	 * Sets the slowed state of the ball which causes it to ease down to slow speed
+	 * (true) or back up to normal speed (false).
 	 */
 	public void setSlowed(boolean s) {
 		slowed = s;
 	}
 
+	/**
+	 * Gives an integer value that indicates the owner of the ball
+	 * @return 1, 2 or 0, signifying player 1, 2, or no one
+	 */
 	public int getOwner() {
 		return ownership;
 	}
@@ -111,26 +115,33 @@ public class Ball extends GameObject {
 		bouncePhysics(paddleY, paddleHeight, paddleState);
 
 	}
-	
+
+	/**
+	 * Reflects the ball off the left goal, preventing a goal
+	 */
 	public void deflectRight() {
 		if (dx < 0) { // only when heading into the left goal
 			ownership = 0;
 			dx = -dx;
 			dy = -dy;
-			SoundEffects.play("SFX/Parry.wav", -20f);
+			// deflect sfx is much quieter so only half as quiet
+			SoundEffects.play("SFX/Parry.wav", SOUND_VOLUME / 2);
 		}
 	}
 
+	/**
+	 * Reflects the ball off the right goal, preventing a goal
+	 */
 	public void deflectLeft() {
 		if (dx > 0) { // only when heading into the right goal
 			ownership = 0;
 			dx = -dx;
 			dy = -dy;
-			SoundEffects.play("SFX/Parry.wav", -20f);
+			// deflect sfx is much quieter so only half as quiet
+			SoundEffects.play("SFX/Parry.wav", SOUND_VOLUME / 2);
 		}
 	}
 
-	
 	/**
 	 * Bounces the ball off the right paddle, sending it to the left and increasing
 	 * its speed each time hit, x speed is clamped
@@ -192,23 +203,29 @@ public class Ball extends GameObject {
 			return;
 		}
 
+		// follows exact same logic as the paddle but for speed instead of size,
+		// (was the original iteration)
 		double target = 1.0;
 		if (slowed) {
 			target = SLOW_SCALE;
 		}
-		// ease the current scale toward the target
+		// ease the current scale toward the target, ensures speed always stays locked
+		// within the value of target
 		speedScale += (target - speedScale) * EASE;
 
-		// positions are whole numbers, so carry the leftover fraction to the next frame
-		double moveX = dx * speedScale * scaleX + xLeftover;
-		double moveY = dy * speedScale * scaleY + yLeftover;
-		int stepX = (int) moveX;
-		int stepY = (int) moveY;
-		xLeftover = moveX - stepX;
-		yLeftover = moveY - stepY;
+		// positions are whole numbers, so in order to make sure very small values still
+		// move, the leftover values are stored
+		// largely cosmetic but on smaller screens important because speeds may reach
+		// very low values.
+		double exactMoveX = dx * speedScale * scaleX + xLeftover;
+		double exactMoveY = dy * speedScale * scaleY + yLeftover;
+		int moveX = (int) exactMoveX;
+		int moveY = (int) exactMoveY;
+		xLeftover = moveX - moveX;
+		yLeftover = moveY - moveY;
 
-		setX(getX() + stepX);
-		setY(getY() + stepY);
+		setX(getX() + moveX);
+		setY(getY() + moveY);
 
 	}
 

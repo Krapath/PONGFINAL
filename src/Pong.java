@@ -78,6 +78,7 @@ public class Pong extends Game {
 	 * delay
 	 */
 	public void setup() {
+		SoundEffects.loadAudioSystem();
 		menu = new MainMenu(getFieldWidth(), getFieldHeight(), this);
 		add(menu);
 		createGame();
@@ -95,7 +96,7 @@ public class Pong extends Game {
 			if (pauseTimer != INDEFINITE) {
 				pauseTimer--;
 				if (pauseTimer == MESSAGE_HIDE_FRAMES) {
-					display.hideMessage();
+					display.hidePopup();
 				}
 				if (pauseTimer <= 0) {
 					resume();
@@ -177,12 +178,12 @@ public class Pong extends Game {
 
 		if (b.collides(p1)) {
 			b.bounceRight(p1.getY(), p1.getHeight(), p1.getState());
-			//TODO: DOESNT QUITE WORK
+			// TODO: DOESNT QUITE WORK
 
 		}
 		if (b.collides(p2)) {
 			b.bounceLeft(p2.getY(), p2.getHeight(), p2.getState());
-			//TODO: DOESNT QUITE WORK 
+			// TODO: DOESNT QUITE WORK
 
 		}
 
@@ -378,7 +379,7 @@ public class Pong extends Game {
 		add(flashbang.getAnimationLabel());
 		getContentPane().setComponentZOrder(flashbang.getAnimationLabel(), 0);
 
-		powers = new PowerUp[] { glitch, theWorld, flashbang, bigPaddle, shield,smallPaddle };
+		powers = new PowerUp[] { glitch, theWorld, flashbang, bigPaddle, shield, smallPaddle };
 
 		resetPositions();
 
@@ -445,14 +446,15 @@ public class Pong extends Game {
 	}
 
 	/**
-	 * Puts everything back to a fresh game and shows the main menu again.
+	 * Resets everything in the game to original state and makes the main menu
+	 * visible again.
 	 */
 	public void returnToZero() {
 		p1Score = 0;
 		p2Score = 0;
 		gameOver = false;
 		display.updateScore(p1Score, p2Score);
-		display.hideMessage();
+		display.hidePopup();
 		b.serveRight();
 		resetPositions();
 		resetAllEffects();
@@ -461,8 +463,8 @@ public class Pong extends Game {
 	}
 
 	/**
-	 * P pauses and resumes during play, and returns to the menu after a win. Does
-	 * nothing while the menu is showing.
+	 * P will pause and resumes while playing, returns to the menu after a win, and
+	 * does nothing on menu screen.
 	 */
 	private void pauseKey() {
 		if (menu.isVisible()) {
@@ -478,10 +480,11 @@ public class Pong extends Game {
 
 		pHeld = true;
 
+		// checks for all scenarios and does appropriate action
 		if (gameOver) {
 			returnToZero();
 		} else if (state == GameState.PAUSED && pauseTimer == INDEFINITE) {
-			display.hideMessage();
+			display.hidePopup();
 			resume();
 		} else if (state == GameState.PLAYING) {
 			display.showPopup("PAUSED", Color.WHITE, popUpFont);
@@ -496,7 +499,7 @@ public class Pong extends Game {
 		Pong game = new Pong();
 		game.setVisible(true);
 		game.initComponents();
-		// so main menu renders
+		//TODO: not sure if actually does anything so main menu renders properly
 		game.getContentPane().revalidate();
 		game.getContentPane().repaint();
 	}

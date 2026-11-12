@@ -8,15 +8,15 @@ import javax.swing.Timer;
 import java.util.ArrayList;
 
 /**
- * Timed ability with a duration in milliseconds. It runs on its own timers, so
- * nothing needs to call it every frame. Each power also has an icon, which is
- * shown on the pickup orb.
- * <p>
- * An ability can either belong to a player (use the methods that take a user)
- * or be global and affect the whole game (use the methods without a user).
- * Author: Hugo To
+ * Timed ability with a duration in milliseconds, runs on its own timers, so
+ * nothing in game needs to call it every frame. Each power also has an icon,
+ * which is import for the pickup orbs abilities can either belong to a player
+ * (use the methods that take a user) or be global and affect the whole game
+ * (use the methods without a user). Author: Hugo To
  */
-public class PowerUp {
+
+//TODO: LOWKEY LARP IDK IF I SHOULD MAKE IT ABSTRACT
+public abstract class PowerUp {
 
 	private static final int PLAYERS = 2;
 
@@ -70,8 +70,6 @@ public class PowerUp {
 		return new ImageIcon(flipped);
 	}
 
-	// ----- abilities that belong to a player -----
-
 	/**
 	 * return true if the ability is currently active for this player.
 	 *
@@ -91,9 +89,9 @@ public class PowerUp {
 	}
 
 	/**
-	 * called by the pickup when a player collects it. Each power can override this
+	 * Called by the pickup when a player collects it. All power can override this
 	 * to decide what to do with the player number (1 or 2). By default it just
-	 * performs the ability.
+	 * performs ability which runs the timer.
 	 *
 	 * @param user the player who collected it, 1 or 2
 	 */
@@ -102,8 +100,7 @@ public class PowerUp {
 	}
 
 	/**
-	 * Same as use(user), but also tells the power where the pickup was. Powers that
-	 * show an effect at the pickup can override this.
+	 * Same as use(user), but also tells the power where the pickup was.
 	 *
 	 * @param user the player who collected it, 1 or 2
 	 * @param x    x of the center of the pickup
@@ -174,7 +171,8 @@ public class PowerUp {
 			isActive[i] = false;
 		}
 		// clear and stop all timers
-		// without stopping the timers/removing the, existing abilities timers would be running even if its not doing anything
+		// without stopping the timers/removing the, existing abilities timers would be
+		// running even if its not doing anything
 		for (Timer t : timers) {
 			t.stop();
 		}
@@ -194,20 +192,23 @@ public class PowerUp {
 	}
 
 	/**
-	 * Runs once after a number of milliseconds, without freezing the game.
+	 * runs the specific action once after a number of milliseconds, without having
+	 * to pause or convoluted timer systems
 	 *
 	 * @param ms     how long to wait, in milliseconds
 	 * @param action the code to run when the wait is over
 	 */
 	public void delay(int ms, Runnable action) {
 		Timer t = new Timer(ms, null);
-		// https://stackoverflow.com/questions/29441968/how-does-addactionlistenere-work-is-it-better-than-an-actionlistener
 
 		// in order to make sure we can remove the timer, we need to add the action
-		// listener AFTER it is initialized so it can make a reference to itself to remove from the arraylist
-		// the importance of removing timer is that otherwise a new timer object that is dead will be created
+		// listener AFTER it is initialized so it can make a reference to itself to
+		// remove from the arraylist
+		// the importance of removing timer is that otherwise a new timer object that is
+		// will be created and never garbaged collected
+		// lambda expression because actionlistener is a functional interface
 		
-		t.addActionListener(e -> {
+		t.addActionListener((e) -> {
 			timers.remove(t);
 			action.run();
 		});

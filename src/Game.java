@@ -44,8 +44,8 @@ import javax.swing.Timer;
 
 public abstract class Game extends JFrame {
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	private int windowWidth = (int) screenSize.getWidth();
-	private int windowHeight = (int) screenSize.getHeight();
+	private int windowWidth =(int) screenSize.getWidth();
+	private int windowHeight =(int) screenSize.getHeight();
 	private boolean _isSetup = false;
 	private boolean _initialized = false;
 	private ArrayList _ObjectList = new ArrayList();
@@ -226,16 +226,7 @@ public abstract class Game extends JFrame {
 		getContentPane().setLayout(null);
 		setUndecorated(true); // remove the top bar 
 		
-		// REMEMBER TO REMOVE OR CHANGE
-	     /*
-        JMenuBar menuBar = new JMenuBar();
-        JMenu menuFile = new JMenu("File");
-        JMenuItem menuFileExit = new JMenuItem("Exit");
-        menuBar.add(menuFile);
-        menuFile.add(menuFileExit);
-        setJMenuBar(menuBar);
-        setTitle("Pong");
-            */   
+
         // Add window listener.
         addWindowListener (
             new WindowAdapter() {

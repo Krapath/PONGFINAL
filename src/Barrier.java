@@ -21,11 +21,21 @@ public class Barrier extends GameObject {
 		setVisible(false);
 	}
 
+	/**
+	 * Sets the shielded state of a barrier, making it visible, and providing
+	 * protection against scoring
+	 * 
+	 * @param s
+	 */
 	public void setShielded(boolean s) {
 		shielded = s;
 		setVisible(s); // the barrier is only drawn while shielded
 	}
 
+	/**
+	 * Returns the state of if barrier is shielded, which triggers deflection mechanic
+	 * @return
+	 */
 	public boolean getShielded() {
 		return shielded;
 	}

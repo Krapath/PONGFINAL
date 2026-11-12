@@ -1,22 +1,18 @@
-import javax.swing.*;
-import java.awt.*;
 
+
+//TODO: ADD ALL OF THE HEADER COMMENTS
 public class SmallPaddle extends PowerUp {
 	private static final int DURATION = 7500; // ability duration in ms
 
 	/**
 	 * Decrease the size of the opponents paddle for a duration.
-	 * 
-	 * @param boundsX screen width reference
-	 * @param boundsY screen height reference
+	 *
 	 */
 	public SmallPaddle() {
 		super(DURATION, "SPRITES/SmallPaddle.gif");
 		
 
 	}
-
-	//TODO: KINDA USELESS METHODS SUBJECT TO REMOVAL
 	
 	/**
 	 * Return true if a paddle is currently shrunk.

@@ -9,7 +9,7 @@ public class Shield extends PowerUp {
 
 
 	/**
-	 * Increases the size of the player's paddle for a duration.
+	 * Increases the size of the player's paddle for a short period of time.
 	 * 
 	 * @param boundsX screen width reference
 	 * @param boundsY screen height reference
@@ -20,18 +20,18 @@ public class Shield extends PowerUp {
 
 	}
 
-	//TODO: KINDA USELESS METHODS SUBJECT TO REMOVAL
 	
 	/**
-	 * Return true if a paddle is currently enlarged.
+	 * @return if a paddle is currently shielded .
 	 */
-	
 	public boolean isShielded(int player) {
 		return isActive[player];
 	}
 	
 
-	
+	/**
+	 * uses ability and plays sfx from Kingdom Rush 
+	 */
 	public void use(int user) {
 		if (canUse(user)) {
 			SoundEffects.play("SFX/ReinforcementsEvent2.wav", -15f);

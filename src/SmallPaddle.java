@@ -15,7 +15,7 @@ public class SmallPaddle extends PowerUp {
 	}
 	
 	/**
-	 * Return true if a paddle is currently shrunk.
+	 * @return true if a paddle is currently shrunk.
 	 */
 	public boolean isShrunk(int player) {
         if (player == 1) { 
@@ -29,7 +29,9 @@ public class SmallPaddle extends PowerUp {
 	}
 	
 
-	
+	/**
+	 * Player bound ability, increases size of paddle, and plays Mario size down sfx
+	 */
 	public void use(int user) {
 		if (canUse(user)) {
 			SoundEffects.play("SFX/powerdown.wav", -15f);
@@ -38,7 +40,4 @@ public class SmallPaddle extends PowerUp {
 	}
 
 	
-	public void onDurationEnd() {
-
-	}
 }

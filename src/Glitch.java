@@ -1,6 +1,7 @@
 /**
- * Player bound ability that inverts player controls
  * Author: Hugo To
+ * Nov 10, 2026
+ * Player bound ability that inverts player controls
  */
 public class Glitch extends PowerUp {
     private static final int DURATION = 4000; // 4 seconds of inverted controls

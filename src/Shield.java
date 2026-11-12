@@ -1,11 +1,7 @@
-import javax.swing.*;
-import java.awt.*;
+
 
 public class Shield extends PowerUp {
 	private static final int DURATION = 5000; // ability duration in ms
-	private static final int COOLDOWN = 10; // cooldown in ms not aplicable for this ability
-	private static final int REF_WIDTH = 1600; 
-	private static final int REF_HEIGHT = 900;
 
 
 	/**
@@ -30,7 +26,7 @@ public class Shield extends PowerUp {
 	
 
 	/**
-	 * uses ability and plays sfx from Kingdom Rush 
+	 * Uses ability and plays sfx from Kingdom Rush 
 	 */
 	public void use(int user) {
 		if (canUse(user)) {
@@ -40,8 +36,4 @@ public class Shield extends PowerUp {
 		}
 	}
 
-	
-	public void onDurationEnd() {
-
-	}
 }

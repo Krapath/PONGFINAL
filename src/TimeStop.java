@@ -99,6 +99,9 @@ public class TimeStop extends PowerUp {
 		}
 	}
 
+	/**
+	 * Overloaded endPower method to ensure animation does not continue
+	 */
 	public void endPower() {
 		super.endPower();
 		animating = false;

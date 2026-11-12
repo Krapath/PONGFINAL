@@ -4,7 +4,7 @@ import javax.swing.*;
 /*
  * Author: Hugo To
  * November 5, 2026
- * Separate GUI that is responsible for drawing text on screen and other GUI elements
+ * Separate menu element that is responsible for main menu and game creation/starting
  */
 
 public class MainMenu extends JPanel {
@@ -17,7 +17,7 @@ public class MainMenu extends JPanel {
 	private static final int BUTTON_WIDTH = 300;
 	private static final int BUTTON_HEIGHT = 100;
 	private static final int BUTTON_FONT_SIZE = 40;
-	private static final float SOUND_VOLUME = -15f;
+	private static final float SOUND_VOLUME = 5f;
 	private static final int MARGIN = 50; // space between the logo and buttons
 
 	// JButton fields
@@ -128,6 +128,7 @@ public class MainMenu extends JPanel {
 		UIManager.put("OptionPane.background", Color.BLACK);
 		UIManager.put("Panel.background", Color.BLACK);
 		JOptionPane.showMessageDialog(null, howTo, "Instructions", JOptionPane.PLAIN_MESSAGE);
+		
 	}
 
 	/**

@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * (use the methods without a user). Author: Hugo To
  */
 
-//TODO: LOWKEY LARP IDK IF I SHOULD MAKE IT ABSTRACT
+//While there are no shared abstract methods, the class is abstract in nature, meaning that it should not be instantiated as its own object
 public abstract class PowerUp {
 
 	private static final int PLAYERS = 2;
@@ -38,7 +38,7 @@ public abstract class PowerUp {
 	protected JLabel animationLabel;
 
 	/**
-	 * create an ability with a duration and icon.
+	 * Create an ability with a duration and icon.
 	 *
 	 * @param maxDur   how long the ability lasts, in milliseconds
 	 * @param iconFile file path of the picture shown on the pickup
@@ -71,7 +71,7 @@ public abstract class PowerUp {
 	}
 
 	/**
-	 * return true if the ability is currently active for this player.
+	 * @return true if the ability is currently active for this player.
 	 *
 	 * @param user the player, 1 or 2
 	 */
@@ -80,7 +80,7 @@ public abstract class PowerUp {
 	}
 
 	/**
-	 * return true if the ability is ready to be used by this player.
+	 * @return true if the ability is ready to be used by this player.
 	 *
 	 * @param user the player, 1 or 2
 	 */
@@ -111,7 +111,7 @@ public abstract class PowerUp {
 	}
 
 	/**
-	 * trigger the ability for a player if it can be used. When the duration runs
+	 * Trigger the ability for a player if it can be used. When the duration runs
 	 * out, the subclass is notified. Each player has their own timer, so both
 	 * players can have the ability at the same time.
 	 *
@@ -139,21 +139,21 @@ public abstract class PowerUp {
 	// ----- global abilities, they affect the whole game and have no user -----
 
 	/**
-	 * return true if the global ability is currently active.
+	 * @return true if the global ability is currently active.
 	 */
 	public boolean isGlobalActive() {
 		return globalActive;
 	}
 
 	/**
-	 * return true if the global ability is ready to be used.
+	 * @return true if the global ability is ready to be used.
 	 */
 	public boolean canUse() {
 		return !globalActive;
 	}
 
 	/**
-	 * trigger a global ability if it can be used. When the duration runs out, the
+	 * Trigger a global ability if it can be used. When the duration runs out, the
 	 * subclass is notified.
 	 */
 	public void performAbility() {
@@ -185,14 +185,14 @@ public abstract class PowerUp {
 	}
 
 	/**
-	 * called when a global ability duration ends
+	 * Called when a global ability duration ends, designed to be overloaded by child classes
 	 */
 	public void onDurationEnd() {
 
 	}
 
 	/**
-	 * runs the specific action once after a number of milliseconds, without having
+	 * Runs the specific action once after a number of milliseconds, without having
 	 * to pause or convoluted timer systems
 	 *
 	 * @param ms     how long to wait, in milliseconds

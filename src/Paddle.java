@@ -1,25 +1,27 @@
 
 /**
- * Author: Hugo To November 5, 2026 A paddle that is to be controlled by a
- * player, extends GameObject. Paddles can only move up and down, the paddle
- * itself does not read the keyboard, only the Pong class does
+ * Author: Hugo To 
+ * November 5, 2026 
+ * Paddle object that represents the players in Pong game
  */
 public class Paddle extends GameObject {
 	// speed value of paddle
 
+	// Symbolic constants 
+	
 	private static final int REF_WIDTH = 1600; // the screen size the pixel values are written for
 	private static final int REF_HEIGHT = 900;
 	private static final int SPEED = 15; // reference speed
+	private static double ENLARGED_SCALE = 1.5;
+	private static double SHRUNK_SCALE = 0.75;
+	private static final double EASE = 0.4; // rate at which it eases
 	private int realSpeed;
 	public PaddleState state = PaddleState.IDLE;
 	private boolean frozen = false;
 	public boolean paused;
 	private boolean enlarged = false;
 	private boolean shrunk = false;
-	private static double ENLARGED_SCALE = 1.5;
-	private static double SHRUNK_SCALE = 0.75;
 	private double sizeScale = 1.0; // base size scale
-	private static final double EASE = 0.4; // rate at which it eases
 	private int baseWidth;
 	private int baseHeight;
 
@@ -103,12 +105,15 @@ public class Paddle extends GameObject {
 	}
 
 	/**
-	 * Gets what the paddle is doing in the current frame. returns PaddleState
+	 * @return PaddleState, what the paddle is doing in the current frame. 
 	 */
 	public PaddleState getState() {
 		return state;
 	}
 
+	/**
+	 * Handles paddle size during ability states
+	 */
 	public void act() {
 		if (paused) {
 			return;

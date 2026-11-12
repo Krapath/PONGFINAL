@@ -205,7 +205,7 @@ public abstract class Game extends JFrame {
 	/**
 	 * The default constructor for the game.
 	 * 
-	 * The default window size is 400x400
+	 * 
 	 */
 	public Game() {
 
@@ -227,16 +227,9 @@ public abstract class Game extends JFrame {
 		setUndecorated(true); // remove the top bar 
 		
 
-        // Add window listener.
-        addWindowListener (
-            new WindowAdapter() {
-                public void windowClosing(WindowEvent e) {
-                    System.exit(0);
-                }
-            }
-        );
+
         
-        // Changed old timer method to use lambda expression
+        // Changed old timer method to use lambda expression for more efficiency
        _t = new Timer(1, e_-> {
    				act();
    				for (int i = 0; i < _ObjectList.size(); i++) {

@@ -1,7 +1,9 @@
 import java.awt.Color;
 
-/**
- * The goal line at the edge of a player's side. It only shows while the player
+/*
+ * Author: Hugo To
+ * Nov 9, 2026
+ * A physical barrier class that extends game object . It only shows while the player
  * is shielded.
  */
 public class Barrier extends GameObject {

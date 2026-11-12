@@ -28,7 +28,7 @@ public class Pong extends Game {
 	private static final int WINNING_SCORE = 5; // change for testing right now
 	private static final int SCORE_DELAY = 50; // roughly 1.5 second delay
 	private static final int INDEFINITE = -1;
-	private static final int SPAWN_ODDS = 5; // 1 in 10 each frame, about instant
+	private static final int SPAWN_ODDS = 10; // 1 in 10 each frame, so about 0.2 seconds to spawn
 	private static final int PICKUP_SIZE = 75;
 	private static final int WINNER_FONT_SIZE = 50;
 	private static final int MESSAGE_HIDE_FRAMES = 8;
@@ -106,7 +106,7 @@ public class Pong extends Game {
 			return;
 		}
 
-		if (rand.nextInt(2) == 0) {
+		if (rand.nextInt(SPAWN_ODDS) == 0) {
 			PowerUp power = powers[rand.nextInt(powers.length)];
 
 			// only one orb of each power at a time
@@ -131,7 +131,7 @@ public class Pong extends Game {
 		p2.idle();
 		// key presses
 		if (ZKeyPressed()) {
-			if (glitch.isGlitched(2)) {
+			if (glitch.isGlitched(1)) {
 				p1.moveDown();
 
 			} else {
@@ -139,7 +139,7 @@ public class Pong extends Game {
 			}
 		}
 		if (XKeyPressed()) {
-			if (glitch.isGlitched(2)) {
+			if (glitch.isGlitched(1)) {
 				p1.moveUp();
 
 			} else {
@@ -148,7 +148,7 @@ public class Pong extends Game {
 		}
 
 		if (NKeyPressed()) {
-			if (glitch.isGlitched(1)) {
+			if (glitch.isGlitched(2)) {
 				p2.moveDown();
 
 			} else {
@@ -157,7 +157,7 @@ public class Pong extends Game {
 
 		}
 		if (MKeyPressed()) {
-			if (glitch.isGlitched(1)) {
+			if (glitch.isGlitched(2)) {
 				p2.moveUp();
 
 			} else {
@@ -222,7 +222,7 @@ public class Pong extends Game {
 	 *
 	 * @param p the paddle to keep on the screen
 	 */
-	public void keepInBounds(Paddle p) {
+	private void keepInBounds(Paddle p) {
 		if (p.getY() < 0) {
 			p.setY(0);
 		}
@@ -233,7 +233,7 @@ public class Pong extends Game {
 
 	/**
 	 * Gives a point to a player and gets the game ready for the next serve.
-	 * <p>
+	 * 
 	 * The ball is set to serve toward the player who just lost the point, the score
 	 * board is updated, and the ball and paddles are moved back to the center. If
 	 * the player has now reaches winning score, the winner message is shown, and
@@ -241,7 +241,7 @@ public class Pong extends Game {
 	 *
 	 * @param player the player who scored, represented as an integer
 	 */
-	public void score(int player) {
+	private void score(int player) {
 		if (player == 1) {
 			p1Score++;
 			b.setVisible(false);
@@ -297,7 +297,7 @@ public class Pong extends Game {
 	 * Ends a pause by returning the game state to playing, as well as unpausing the
 	 * ball and reseting timer to 0
 	 */
-	public void resume() {
+	private void resume() {
 		state = GameState.PLAYING;
 		b.paused = false;
 		p1.paused = false;
@@ -312,15 +312,19 @@ public class Pong extends Game {
 	 * @param frames the amount of frames pause lasts, or the constant INDEFINITE
 	 *               which will not end by itself
 	 */
-	public void pause(int frames) {
+	private void pause(int frames) {
 		state = GameState.PAUSED;
 		b.paused = true;
 		p1.paused = true;
 		p2.paused = true;
 		pauseTimer = frames;
 	}
+	
 
-	public void stop() {
+	/**
+	 * Pauses the game indefinetely and hides all of the game elements
+	 */
+	private void stop() {
 		pause(INDEFINITE);
 		p1.setVisible(false);
 		p2.setVisible(false);
@@ -328,10 +332,12 @@ public class Pong extends Game {
 
 		display.setVisible(false);
 	}
-
+	
+	/**
+	 * Starts the game, unpausing the game and setting game elements as visible
+	 */
 	public void start() {
 		resume();
-		// TODO: FIND A BETTER FIX MAYBE?
 		setFocusable(true);
 		// IN ORDER
 		// https://stackoverflow.com/questions/31971277/button-remains-focused-after-clicking
@@ -343,7 +349,10 @@ public class Pong extends Game {
 
 	}
 
-	public void createGame() {
+	/**
+	 * Instantiates all the objects part of the game and positions them appropiately
+	 */
+	private void createGame() {
 		int width = getFieldWidth();
 		int height = getFieldHeight();
 		int margin = PADDLE_MARGIN * width / REF_WIDTH;
@@ -396,7 +405,7 @@ public class Pong extends Game {
 	 * Moves the ball to the center of the screen and both players to the vertical
 	 * center of their sides. The paddles keep their x positions.
 	 */
-	public void resetPositions() {
+	private void resetPositions() {
 		b.setX(getFieldWidth() / 2 - b.getWidth() / 2);
 		b.setY(getFieldHeight() / 2 - b.getHeight() / 2);
 
@@ -424,7 +433,7 @@ public class Pong extends Game {
 	/**
 	 * Clears all powerups and resets all objects so they dont linger during pause
 	 */
-	public void resetAllEffects() {
+	private void resetAllEffects() {
 
 		for (int i = pickUps.size() - 1; i >= 0; i--) {
 			Pickup p = pickUps.get(i);
@@ -449,7 +458,7 @@ public class Pong extends Game {
 	 * Resets everything in the game to original state and makes the main menu
 	 * visible again.
 	 */
-	public void returnToZero() {
+	private void returnToZero() {
 		p1Score = 0;
 		p2Score = 0;
 		gameOver = false;
@@ -499,7 +508,7 @@ public class Pong extends Game {
 		Pong game = new Pong();
 		game.setVisible(true);
 		game.initComponents();
-		//TODO: not sure if actually does anything so main menu renders properly
+		//just in case to make sure the game resizes properly and is redrawn 
 		game.getContentPane().revalidate();
 		game.getContentPane().repaint();
 	}

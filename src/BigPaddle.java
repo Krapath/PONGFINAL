@@ -1,6 +1,9 @@
-import javax.swing.*;
-import java.awt.*;
 
+/*
+ * Author: Hugo To
+ * November 7, 2026
+ * Player bound ability that sets players paddle state to enlarged
+ */
 public class BigPaddle extends PowerUp {
 	private static final int DURATION = 7500; // ability duration in ms
 	private static final float SOUND_VOLUME = -15f;
@@ -17,7 +20,7 @@ public class BigPaddle extends PowerUp {
 	}
 
 	/**
-	 * Return true if a paddle is currently enlarged.
+	 * @return true if a paddle is currently enlarged.
 	 */
 	public boolean isEnlarged(int player) {
 		return isActive[player];

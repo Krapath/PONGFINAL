@@ -2,7 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Global ability that blinds the entire screen like in CS:GO Author: Hugo To
+ * Author: Hugo To
+ * Nov 10, 2026
+ * Global ability that blinds the entire screen for a duration 
  */
 public class Flashbang extends PowerUp {
 	private static final int HOLD_MS = 1000; // how long it stays fully white
@@ -13,7 +15,7 @@ public class Flashbang extends PowerUp {
 	private float opacity = 0f; // 1 is solid white, 0 is invisible
 
 	/**
-	 * Creates the flashbang and its screen-sized white image.
+	 * Creates the flashbang and white image the size of the screen.
 	 *
 	 * @param windowWidth  the width of the playing field in pixels
 	 * @param windowHeight the height of the playing field in pixels

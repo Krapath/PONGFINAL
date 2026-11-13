@@ -1,14 +1,15 @@
 
-
+/**
+ * Author: Hugo To
+ * November 10, 2026
+ * Ability that activates barrier, preventing scorinng
+ */
 public class Shield extends PowerUp {
 	private static final int DURATION = 5000; // ability duration in ms
 
 
 	/**
-	 * Increases the size of the player's paddle for a short period of time.
-	 * 
-	 * @param boundsX screen width reference
-	 * @param boundsY screen height reference
+	 * Activates the barrier for a short period of time, preventing scoring
 	 */
 	public Shield() {
 		super(DURATION, "SPRITES/Shield.png");
@@ -19,6 +20,7 @@ public class Shield extends PowerUp {
 	
 	/**
 	 * @return if a paddle is currently shielded .
+	 * @param the Player 1 or 2 who triggered the ability
 	 */
 	public boolean isShielded(int player) {
 		return isActive[player];
@@ -26,7 +28,7 @@ public class Shield extends PowerUp {
 	
 
 	/**
-	 * Uses ability and plays sfx from Kingdom Rush 
+	 * Uses ability and plays sfx courtesy of Kingdom Rush 
 	 */
 	public void use(int user) {
 		if (canUse(user)) {

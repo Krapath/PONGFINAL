@@ -13,6 +13,8 @@ import java.util.Random;
  * the game class. Contains a ball, two paddles, and GUI element. Handles
  * general logic like bounds of ball and paddle, winning condition etc.
  */
+
+//TODO: MAKE JAVADOC NOT HAVE A COMMA AFTER PARAMS AND RETURN
 public class Pong extends Game {
 
 	// symbolic constants
@@ -26,7 +28,7 @@ public class Pong extends Game {
 	private static final int PADDLE_MARGIN = 15;
 	private static final int BALL_SIZE = 20;
 	private static final int WINNING_SCORE = 5; // change for testing right now
-	private static final int SCORE_DELAY = 50; // roughly 1.5 second delay
+	private static final int SCORE_DELAY = 60; // roughly 1.5 second delay
 	private static final int INDEFINITE = -1;
 	private static final int SPAWN_ODDS = 10; // 1 in 10 each frame, so about 0.2 seconds to spawn
 	private static final int PICKUP_SIZE = 75;
@@ -178,12 +180,10 @@ public class Pong extends Game {
 
 		if (b.collides(p1)) {
 			b.bounceRight(p1.getY(), p1.getHeight(), p1.getState());
-			// TODO: DOESNT QUITE WORK
 
 		}
 		if (b.collides(p2)) {
 			b.bounceLeft(p2.getY(), p2.getHeight(), p2.getState());
-			// TODO: DOESNT QUITE WORK
 
 		}
 
@@ -268,7 +268,7 @@ public class Pong extends Game {
 		display.updateScore(p1Score, p2Score);
 		resetPositions();
 		resetAllEffects();
-		/// winning conditions MAYBE MAKE DISPLAY HOLD THE FONT
+		/// winning conditions
 		if (p1Score == WINNING_SCORE) {
 
 			// https://stackoverflow.com/questions/6635730/how-do-i-put-html-in-a-jlabel-in-java
@@ -384,7 +384,7 @@ public class Pong extends Game {
 
 		flashbang = new Flashbang(width, height);
 		glitch = new Glitch();
-		// necessary to add bc it has animation esque
+		// necessary to add because it has animation 
 		add(flashbang.getAnimationLabel());
 		getContentPane().setComponentZOrder(flashbang.getAnimationLabel(), 0);
 
@@ -450,6 +450,8 @@ public class Pong extends Game {
 		p2.setEnlarged(false);
 		p1.setFrozen(false);
 		p2.setFrozen(false);
+		p1.setShrunk(false);
+		p2.setShrunk(false);
 		barrier1.setShielded(false);
 		barrier2.setShielded(false);
 	}

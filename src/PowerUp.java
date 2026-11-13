@@ -8,11 +8,13 @@ import javax.swing.Timer;
 import java.util.ArrayList;
 
 /**
+ * Author: Hugo To
+ * November 7, 2026
  * Timed ability with a duration in milliseconds, runs on its own timers, so
  * nothing in game needs to call it every frame. Each power also has an icon,
  * which is import for the pickup orbs abilities can either belong to a player
  * (use the methods that take a user) or be global and affect the whole game
- * (use the methods without a user). Author: Hugo To
+ * (use the methods without a user). 
  */
 
 //While there are no shared abstract methods, the class is abstract in nature, meaning that it should not be instantiated as its own object
@@ -49,23 +51,30 @@ public abstract class PowerUp {
 	}
 
 	/**
-	 * return the picture shown on the pickup orb.
+	 * @return The picture shown on the pickup orb.
 	 */
 	public Image getIcon() {
 		return icon;
 	}
 
+	/**
+	 * @return The animation label used for specific powerup
+	 */
 	public JLabel getAnimationLabel() {
 		return animationLabel;
 	}
 
-	// flip image to denote player/ side
-	protected ImageIcon flipHorizontally(ImageIcon icon) {
-		int w = icon.getIconWidth();
-		int h = icon.getIconHeight();
+	/**
+	 * 
+	 * @param The icon of the given animation label
+	 * @return The flipped animation icon
+	 */
+	protected ImageIcon flipHorizontally(ImageIcon animationIcon) {
+		int w = animationIcon.getIconWidth();
+		int h = animationIcon.getIconHeight();
 		BufferedImage flipped = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = flipped.createGraphics();
-		g.drawImage(icon.getImage(), w, 0, -w, h, null); // start at the right edge and draw backward
+		g.drawImage(animationIcon.getImage(), w, 0, -w, h, null); // start at the right edge and draw backward
 		g.dispose();// always executes, preventing resource leaks and lag
 		return new ImageIcon(flipped);
 	}
@@ -136,8 +145,7 @@ public abstract class PowerUp {
 
 	}
 
-	// ----- global abilities, they affect the whole game and have no user -----
-
+	// Global abilities, they affect the whole game and have no user 
 	/**
 	 * @return true if the global ability is currently active.
 	 */
@@ -166,6 +174,11 @@ public abstract class PowerUp {
 		}
 	}
 
+	/**
+	 * Ends the power by making all powers inactive
+	 * Clears and removes all power timers from list
+	 * Ends all animations of powerups
+	 */
 	public void endPower() {
 		for (int i = 0; i < isActive.length; i++) {
 			isActive[i] = false;

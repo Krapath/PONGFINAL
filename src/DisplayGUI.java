@@ -19,8 +19,8 @@ public class DisplayGUI extends JPanel {
 	 * Builds the overlay for the labels. The panel covers the whole playing field
 	 * but is transparent, acts only as a frame for other labels.
 	 *
-	 * @param width  the width of the game in pixels
-	 * @param height the height of the game in pixels
+	 * @param windowWidth  the width of the game in pixels
+	 * @param windowHeight the height of the game in pixels
 	 */
 	public DisplayGUI(int windowWidth, int windowHeight) {
 		setLayout(null);
@@ -56,7 +56,7 @@ public class DisplayGUI extends JPanel {
 	}
 
 	/**
-	 * Shows a message in the center of the screen indicating the winner
+	 * Shows a message in the center of the screen
 	 *
 	 * @param text the message to show
 	 * @param c    the color of the text

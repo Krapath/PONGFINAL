@@ -5,15 +5,14 @@
  * Paddle object that represents the players in Pong game
  */
 public class Paddle extends GameObject {
-	// speed value of paddle
 
 	// Symbolic constants 
-	
+
 	private static final int REF_WIDTH = 1600; // the screen size the pixel values are written for
 	private static final int REF_HEIGHT = 900;
 	private static final int SPEED = 15; // reference speed
-	private static double ENLARGED_SCALE = 1.5;
-	private static double SHRUNK_SCALE = 0.75;
+	private static final double ENLARGED_SCALE = 1.5;
+	private static final double SHRUNK_SCALE = 0.75;
 	private static final double EASE = 0.4; // rate at which it eases
 	private int realSpeed;
 	public PaddleState state = PaddleState.IDLE;
@@ -35,8 +34,9 @@ public class Paddle extends GameObject {
 	 *
 	 * @param w the width of the paddle in pixels
 	 * @param h the height of the paddle in pixels
+	 * @param windowWidth how wide the game window is 
+	 * @param windowHeight how tall the game window is
 	 */
-
 	public Paddle(int w, int h, int windowWidth, int windowHeight) {
 		// store base sizes
 		baseWidth = w * windowWidth / REF_WIDTH;
@@ -50,7 +50,7 @@ public class Paddle extends GameObject {
 	/**
 	 * Sets the frozen state of the paddle.
 	 * 
-	 * @param f a boolean value that comes from powerup
+	 * @param f boolean value that comes from a powerup
 	 */
 	public void setFrozen(boolean f) {
 		frozen = f;
@@ -59,7 +59,7 @@ public class Paddle extends GameObject {
 	/**
 	 * Sets the enlarged state of the paddle.
 	 * 
-	 * @param e a boolean value that comes from powerup
+	 * @param e boolean value that comes from a powerup
 	 */
 	public void setEnlarged(boolean e) {
 		enlarged = e;

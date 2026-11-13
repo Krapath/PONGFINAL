@@ -1,9 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Author: Hugo To
+ * November 8, 2026
+ * Stops time (prevents opponents movement) and momentarily slows the ball
+ */
 public class TimeStop extends PowerUp {
 	private static final int DURATION = 1500;// ability duration in ms
-	private static final int COOLDOWN = 10; // not applicable for this ability
 	private static final int FRAME_MS = 40; // how long each sprite shows, in milliseconds
 	private static final int REF_WIDTH = 1600;
 	private static final int REF_HEIGHT = 900;
@@ -44,14 +47,14 @@ public class TimeStop extends PowerUp {
 	}
 
 	/**
-	 * Return true from the moment the ability triggers until time resumes
+	 * @return true from the moment the ability triggers until time resumes
 	 */
 	public boolean isTimeSlowed() {
 		return animating || isActive[1] || isActive[2];
 	}
 
 	/**
-	 * Return the player that is being frozen
+	 * @return the player that is being frozen
 	 */
 	public boolean isFrozen(int player) {
 		if (player == 1) {
@@ -65,6 +68,9 @@ public class TimeStop extends PowerUp {
 
 	/**
 	 * Runs when the player uses the ability. Handles frame animation
+	 * @param user, the Player 1 or 2 who triggered the ability
+	 * @param x, the x location of the pickup
+	 * @param y, the y location of the pickup
 	 */
 	public void use(int user, int x, int y) {
 		if (canUse(user) && !animating) {
@@ -87,10 +93,10 @@ public class TimeStop extends PowerUp {
 				}
 			}
 
-			// once the last sprite finishes had its time, stop time
-			delay((frames.length - 5) * FRAME_MS, () -> {// remember change magic number
+			// once half of frames pass, stop time
+			delay((frames.length - frames.length/2) * FRAME_MS, () -> {
 				animating = false;
-				// SoundEffects.play("SFX/Timestop SE.wav", -20f);
+				// play sound effect, courtesy of Jojo's Bizarre Adventure
 				SoundEffects.play("SFX/TimestopSFX2.wav", -5f);
 				super.performAbility(user);
 			});

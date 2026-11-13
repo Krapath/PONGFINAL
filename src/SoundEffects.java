@@ -3,13 +3,15 @@ import java.io.*;
 import javax.sound.sampled.*;
 
 /**
- * The sound effects that play throughout the game Author: Hugo To
+ * Author: Hugo To
+ * November 7, 2026
+ * The sound effects that play throughout the game 
  */
 public class SoundEffects {
 
 	/**
-	 * @param fileName, the name of the audio file
-	 * @param volume,   the volume of the audio file
+	 * @param fileName the name of the audio file
+	 * @param volume the volume of the audio file
 	 */
 	public static void play(String fileName, float volume) {
 		// use try to make sure that it closes

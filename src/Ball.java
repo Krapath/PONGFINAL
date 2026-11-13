@@ -20,10 +20,9 @@ public class Ball extends GameObject {
 	private static final int PADDLE_MOTION_BONUS = 4;
 	private static final int REFLECTION_BONUS = 1;
 	private static final float SOUND_VOLUME = -30f;
-	// TODO: remember 2 sounds
 	private double speedScale = 1.0; // current speed multiplier
 	private static final double EASE = 0.4; // rate at which it eases
-	private static final double SLOW_SCALE = 0.4; // speed while slowed, 0.5 is half
+	private static final double SLOW_SCALE = 0.4; // speed while slowed, slightly less than half
 	private boolean slowed = false;
 	private double xLeftover = 0; // leftover pixels to deal with integer division
 	private double yLeftover = 0;
@@ -39,6 +38,8 @@ public class Ball extends GameObject {
 	 *
 	 * @param w how wide the ball is, in pixels
 	 * @param h how tall the ball is, in pixels
+	 * @param windowWidth how wide the game window is 
+	 * @param windowHeight how tall the game window is
 	 */
 	public Ball(int w, int h, int windowWidth, int windowHeight) {
 		scaleX = (double) windowWidth / REF_WIDTH;
@@ -50,6 +51,7 @@ public class Ball extends GameObject {
 	/**
 	 * Sets the slowed state of the ball which causes it to ease down to slow speed
 	 * (true) or back up to normal speed (false).
+	 * @param s boolean value that comes from a powerup
 	 */
 	public void setSlowed(boolean s) {
 		slowed = s;
@@ -111,7 +113,7 @@ public class Ball extends GameObject {
 	public void bounceRight(int paddleY, int paddleHeight, Paddle.PaddleState paddleState) {
 		ownership = 1;
 		dx = Math.min(Math.abs(dx) + REFLECTION_BONUS, MAX_SPEED); // ensure the ball moves to the right and speed
-		SoundEffects.play("SFX/bounce.wav", SOUND_VOLUME); // capped, increment speed
+		SoundEffects.play("SFX/bounce.wav", SOUND_VOLUME); 
 		bouncePhysics(paddleY, paddleHeight, paddleState);
 
 	}
@@ -221,9 +223,9 @@ public class Ball extends GameObject {
 		double exactMoveY = dy * speedScale * scaleY + yLeftover;
 		int moveX = (int) exactMoveX;
 		int moveY = (int) exactMoveY;
-		xLeftover = moveX - moveX;
-		yLeftover = moveY - moveY;
-
+		xLeftover = exactMoveX - moveX;
+		yLeftover = exactMoveY - moveY;
+		
 		setX(getX() + moveX);
 		setY(getY() + moveY);
 

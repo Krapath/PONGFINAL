@@ -2,9 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Author: Hugo To
- * Nov 10, 2026
- * Global ability that blinds the entire screen for a duration 
+ * Author: Hugo To November 10, 2026 Global ability that blinds the entire
+ * screen for a duration
  */
 public class Flashbang extends PowerUp {
 	private static final int HOLD_MS = 1000; // how long it stays fully white
@@ -42,7 +41,12 @@ public class Flashbang extends PowerUp {
 	}
 
 	/**
-	 * Global ability, so it ignores which player collected it.
+	 * Global ability, so the player number is ignored, but still required because
+	 * use method takes args in pickup. The pickup asks this method first, so it
+	 * must answer for the global state.
+	 *
+	 * @param user the player who touched the pickup, 1 or 2
+	 * @return true if no flashbang is currently active
 	 */
 	public void use(int user) {
 		if (canUse()) {
@@ -53,7 +57,9 @@ public class Flashbang extends PowerUp {
 	}
 
 	/**
-	 * Use the the ability, specifically the global one
+	 * Global ability, so it ignores which player collected it, and uses global states.
+	 *
+	 * @param user the player who triggers the ability, 1 or 2
 	 */
 	public boolean canUse(int user) {
 		return canUse();
@@ -77,11 +83,17 @@ public class Flashbang extends PowerUp {
 		}
 	}
 
+	/**
+	 * Sets opacity to 0 to ensure animation label is not seen
+	 */
 	public void endPower() {
 		super.endPower();
 		opacity = 0f;
 	}
 
+	/**
+	 * Sets the animation label to not visible to ensure it is not seen
+	 */
 	public void onDurationEnd() {
 		animationLabel.setVisible(false);
 	}

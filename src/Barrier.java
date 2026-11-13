@@ -2,9 +2,9 @@ import java.awt.Color;
 
 /*
  * Author: Hugo To
- * Nov 9, 2026
- * A physical barrier class that extends game object . It only shows while the player
- * is shielded.
+ * November 9, 2026
+ * A physical barrier class that extends game object. 
+ * It only shows while the player is shielded.
  */
 public class Barrier extends GameObject {
 
@@ -27,7 +27,7 @@ public class Barrier extends GameObject {
 	 * Sets the shielded state of a barrier, making it visible, and providing
 	 * protection against scoring
 	 * 
-	 * @param s
+	 * @param s boolean value that comes from a powerup
 	 */
 	public void setShielded(boolean s) {
 		shielded = s;
@@ -35,13 +35,15 @@ public class Barrier extends GameObject {
 	}
 
 	/**
-	 * Returns the state of if barrier is shielded, which triggers deflection mechanic
-	 * @return
+	 * @return The state of if barrier is shielded, which triggers deflection mechanic
 	 */
 	public boolean getShielded() {
 		return shielded;
 	}
 
+	/**
+	 * Does nothing, not necessary to be run in the class itself
+	 */
 	public void act() {
 
 	}

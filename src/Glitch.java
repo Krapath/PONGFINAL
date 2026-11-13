@@ -1,6 +1,6 @@
 /**
  * Author: Hugo To
- * Nov 10, 2026
+ * November 10, 2026
  * Player bound ability that inverts player controls
  */
 public class Glitch extends PowerUp {
@@ -12,8 +12,8 @@ public class Glitch extends PowerUp {
 
     /**
      * Checks if a player is glitched
-     * @param player
-     * @return the given player that is glitched
+     * @param player, the Player 1 or 2 who triggered the ability
+     * @return true when the given players controls are inverted
      */
     public boolean isGlitched(int player) {
         if (player == 1) { 
@@ -26,7 +26,8 @@ public class Glitch extends PowerUp {
     }
 
     /**
-     * uses player bound ability and sound effect
+     * Uses player bound ability and sound effect
+     * @param the Player 1 or 2 who triggered the ability
      */
     public void use(int user) {
         if (canUse(user)) {

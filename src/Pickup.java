@@ -1,10 +1,10 @@
 import java.awt.Graphics;
-import java.awt.Image;
 import java.util.Random;
 
-import javax.swing.ImageIcon;
 
 /**
+ * Author: Hugo To
+ * November 7, 2026
  * An orb that exists only while it is on the field. It carries one power and
  * picks a random spot when created.
  */
@@ -12,7 +12,6 @@ public class Pickup extends GameObject {
 
 	private PowerUp held; // the power this orb carries
 	private Random rand = new Random();
-	private static final int REF_WIDTH = 1600; // the screen size the pixel values are written for
 	private static final int REF_HEIGHT = 900;
 
 	/**
@@ -20,8 +19,8 @@ public class Pickup extends GameObject {
 	 *
 	 * @param size        width and height of the orb in pixels
 	 * @param p           the power this orb gives
-	 * @param fieldWidth  width of the playing field in pixels
-	 * @param fieldHeight height of the playing field in pixels
+	 * @param windowWidth  width of the playing field in pixels
+	 * @param windowWidth height of the playing field in pixels
 	 */
 	public Pickup(int size, PowerUp p, int windowWidth, int windowHeight) {
 		int s = size * windowHeight / REF_HEIGHT; // takes reference size and scales it

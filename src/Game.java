@@ -71,8 +71,17 @@ public abstract class Game extends JFrame {
 	 */
 	private boolean p2Right = false;
 
+	/**
+	 * <code>true</code> if the 'P' key is being held down.
+	 */
+	 
 	private boolean pKey = false;
 
+	/**
+	 * Returns <code>true</code> if the 'P' key is being pressed down
+	 * 
+	 * @return <code>true</code> if the 'P' key is being pressed down
+	 */
 	public boolean PKeyPressed() {
 		return pKey;
 	}
@@ -290,6 +299,11 @@ public abstract class Game extends JFrame {
 		_t.stop();
 	}
 
+	/**
+	 * Gets the pixel width of the visible playing field
+	 * 
+	 * @return a width in pixels
+	 */
 	public int getFieldWidth() {
 		return getContentPane().getBounds().width;
 	}

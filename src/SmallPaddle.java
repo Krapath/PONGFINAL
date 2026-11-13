@@ -1,12 +1,14 @@
 
-
-//TODO: ADD ALL OF THE HEADER COMMENTS
+/*
+ * Author: Hugo To
+ * November 11, 2026
+ * Player bound ability that sets opponents paddle state to shrunk
+ */
 public class SmallPaddle extends PowerUp {
 	private static final int DURATION = 7500; // ability duration in ms
 
 	/**
 	 * Decrease the size of the opponents paddle for a duration.
-	 *
 	 */
 	public SmallPaddle() {
 		super(DURATION, "SPRITES/SmallPaddle.gif");
@@ -15,6 +17,7 @@ public class SmallPaddle extends PowerUp {
 	}
 	
 	/**
+	 * @param user the Player 1 or 2 who triggered the ability
 	 * @return true if a paddle is currently shrunk.
 	 */
 	public boolean isShrunk(int player) {
@@ -30,7 +33,8 @@ public class SmallPaddle extends PowerUp {
 	
 
 	/**
-	 * Player bound ability, increases size of paddle, and plays Mario size down sfx
+	 * Player bound ability, decreases size of opponent paddle, and plays sfx, courtesy of Mario
+	 * @param user, Player 1 or 2, who triggered the ability
 	 */
 	public void use(int user) {
 		if (canUse(user)) {

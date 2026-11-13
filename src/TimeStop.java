@@ -69,8 +69,8 @@ public class TimeStop extends PowerUp {
 	/**
 	 * Runs when the player uses the ability. Handles frame animation
 	 * @param user, the Player 1 or 2 who triggered the ability
-	 * @param x, the x location of the pickup
-	 * @param y, the y location of the pickup
+	 * @param x the x location of the pickup
+	 * @param y the y location of the pickup
 	 */
 	public void use(int user, int x, int y) {
 		if (canUse(user) && !animating) {

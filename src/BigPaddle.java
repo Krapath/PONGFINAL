@@ -26,7 +26,7 @@ public class BigPaddle extends PowerUp {
 
 	/**
 	 * Player bound ability, increases size of paddle and plays sfx, courtesy of Mario
-	 * @param user, the Player 1, or 2 who triggers the ability
+	 * @param user the Player 1, or 2 who triggers the ability
 	 */
 	public void use(int user) {
 		if (canUse(user)) {

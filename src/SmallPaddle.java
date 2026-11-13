@@ -34,7 +34,7 @@ public class SmallPaddle extends PowerUp {
 
 	/**
 	 * Player bound ability, decreases size of opponent paddle, and plays sfx, courtesy of Mario
-	 * @param user, Player 1 or 2, who triggered the ability
+	 * @param user Player 1 or 2, who triggered the ability
 	 */
 	public void use(int user) {
 		if (canUse(user)) {

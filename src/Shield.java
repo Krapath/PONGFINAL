@@ -20,7 +20,7 @@ public class Shield extends PowerUp {
 	
 	/**
 	 * @return if a paddle is currently shielded .
-	 * @param the Player 1 or 2 who triggered the ability
+	 * @param player the Player 1 or 2 who triggered the ability
 	 */
 	public boolean isShielded(int player) {
 		return isActive[player];
@@ -29,6 +29,7 @@ public class Shield extends PowerUp {
 
 	/**
 	 * Uses ability and plays sfx courtesy of Kingdom Rush 
+	 * @param user the Player 1, or 2 who triggers the ability
 	 */
 	public void use(int user) {
 		if (canUse(user)) {

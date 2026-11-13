@@ -1,3 +1,4 @@
+
 /*
  * This code is protected under the Gnu General Public License (Copyleft), 2005 by
  * IBM and the Computer Science Teachers of America organization. It may be freely
@@ -14,12 +15,13 @@ import java.util.Random;
  * general logic like bounds of ball and paddle, winning condition etc.
  */
 
-//TODO: MAKE JAVADOC NOT HAVE A COMMA AFTER PARAMS AND RETURN
+// TODO: MAKE JAVADOC NOT HAVE A COMMA AFTER PARAMS AND RETURN
 public class Pong extends Game {
 
 	// symbolic constants
 
-	private static final int REF_WIDTH = 1600; // the screen size the pixel values are written for
+	private static final int REF_WIDTH = 1600; // the screen size the pixel
+												// values are written for
 	private static final int REF_HEIGHT = 900;
 	private static final int DELAY_TIME = 25;
 	private static final int PADDLE_WIDTH = 30;
@@ -30,7 +32,8 @@ public class Pong extends Game {
 	private static final int WINNING_SCORE = 5; // change for testing right now
 	private static final int SCORE_DELAY = 60; // roughly 1.5 second delay
 	private static final int INDEFINITE = -1;
-	private static final int SPAWN_ODDS = 10; // 1 in 10 each frame, so about 0.2 seconds to spawn
+	private static final int SPAWN_ODDS = 10; // 1 in 10 each frame, so about
+												// 0.2 seconds to spawn
 	private static final int PICKUP_SIZE = 75;
 	private static final int WINNER_FONT_SIZE = 50;
 	private static final int MESSAGE_HIDE_FRAMES = 8;
@@ -89,8 +92,9 @@ public class Pong extends Game {
 	}
 
 	/**
-	 * Runs each frame of the game based on DELAY_TIME, only runs when the game is
-	 * not paused. Handles movement of paddles, scoring, paddle bounds, and etc.
+	 * Runs each frame of the game based on DELAY_TIME, only runs when the game
+	 * is not paused. Handles movement of paddles, scoring, paddle bounds, and
+	 * etc.
 	 */
 	public void act() {
 		pauseKey();
@@ -217,10 +221,11 @@ public class Pong extends Game {
 	}
 
 	/**
-	 * Stops paddle from leaving the screen by moving it back to the nearest edge if
-	 * it goes past the top or bottom.
+	 * Stops paddle from leaving the screen by moving it back to the nearest
+	 * edge if it goes past the top or bottom.
 	 *
-	 * @param p the paddle to keep on the screen
+	 * @param p
+	 *            the paddle to keep on the screen
 	 */
 	private void keepInBounds(Paddle p) {
 		if (p.getY() < 0) {
@@ -234,20 +239,25 @@ public class Pong extends Game {
 	/**
 	 * Gives a point to a player and gets the game ready for the next serve.
 	 * 
-	 * The ball is set to serve toward the player who just lost the point, the score
-	 * board is updated, and the ball and paddles are moved back to the center. If
-	 * the player has now reaches winning score, the winner message is shown, and
-	 * the game is stopped. Otherwise the game pauses before the game continues.
+	 * The ball is set to serve toward the player who just lost the point, the
+	 * score board is updated, and the ball and paddles are moved back to the
+	 * center. If the player has now reaches winning score, the winner message
+	 * is shown, and the game is stopped. Otherwise the game pauses before the
+	 * game continues.
 	 *
-	 * @param player the player who scored, represented as an integer
+	 * @param player
+	 *            the player who scored, represented as an integer
 	 */
 	private void score(int player) {
 		if (player == 1) {
 			p1Score++;
 			b.setVisible(false);
 			b.serveRight();
-			display.showPopup("Player 1 Scores!", Color.RED, popUpFont);
-
+			if (p1Score >= WINNING_SCORE - 1 && p1Score == p2Score) {
+				display.showPopup("Tiebreaker, win by 2!", Color.WHITE, popUpFont);
+			} else {
+				display.showPopup("Player 1 Scores!", Color.RED, popUpFont);
+			}
 			if (p1Score != WINNING_SCORE) {
 				SoundEffects.play("SFX/ScorePoint.wav", SCORE_VOLUME);
 			}
@@ -257,7 +267,11 @@ public class Pong extends Game {
 			p2Score++;
 			b.setVisible(false);
 			b.serveLeft();
-			display.showPopup("Player 2 Scores!", Color.BLUE, popUpFont);
+			if (p2Score >= WINNING_SCORE - 1 && p2Score == p1Score) {
+				display.showPopup("Tiebreaker, win by 2!", Color.WHITE, popUpFont);
+			} else {
+				display.showPopup("Player 2 Scores!", Color.BLUE, popUpFont);
+			}
 			if (p2Score != WINNING_SCORE) {
 				SoundEffects.play("SFX/ScorePoint.wav", SCORE_VOLUME);
 			}
@@ -269,7 +283,7 @@ public class Pong extends Game {
 		resetPositions();
 		resetAllEffects();
 		/// winning conditions
-		if (p1Score == WINNING_SCORE) {
+		if (p1Score >= WINNING_SCORE && p1Score > p2Score + 1) {
 
 			// https://stackoverflow.com/questions/6635730/how-do-i-put-html-in-a-jlabel-in-java
 			display.showPopup("<html><center>Player 1 wins!<br>" + MENU_TEXT + "</center></html>", Color.RED,
@@ -280,7 +294,7 @@ public class Pong extends Game {
 			SoundEffects.play("SFX/Winner!.wav", SCORE_VOLUME);
 			gameOver = true;
 
-		} else if (p2Score == WINNING_SCORE) {
+		} else if (p2Score >= WINNING_SCORE && p2Score > p1Score + 1) {
 			display.showPopup("<html><center>Player 2 wins!<br>" + MENU_TEXT + "</center></html>", Color.BLUE,
 					popUpFont);
 			b.setVisible(false);
@@ -294,8 +308,8 @@ public class Pong extends Game {
 	}
 
 	/**
-	 * Ends a pause by returning the game state to playing, as well as unpausing the
-	 * ball and reseting timer to 0
+	 * Ends a pause by returning the game state to playing, as well as unpausing
+	 * the ball and reseting timer to 0
 	 */
 	private void resume() {
 		state = GameState.PLAYING;
@@ -309,8 +323,9 @@ public class Pong extends Game {
 	/**
 	 * Pauses the game and all of its elements for a set amount of frames
 	 *
-	 * @param frames the amount of frames pause lasts, or the constant INDEFINITE
-	 *               which will not end by itself
+	 * @param frames
+	 *            the amount of frames pause lasts, or the constant INDEFINITE
+	 *            which will not end by itself
 	 */
 	private void pause(int frames) {
 		state = GameState.PAUSED;
@@ -319,7 +334,6 @@ public class Pong extends Game {
 		p2.paused = true;
 		pauseTimer = frames;
 	}
-	
 
 	/**
 	 * Pauses the game indefinetely and hides all of the game elements
@@ -332,7 +346,7 @@ public class Pong extends Game {
 
 		display.setVisible(false);
 	}
-	
+
 	/**
 	 * Starts the game, unpausing the game and setting game elements as visible
 	 */
@@ -350,7 +364,8 @@ public class Pong extends Game {
 	}
 
 	/**
-	 * Instantiates all the objects part of the game and positions them appropiately
+	 * Instantiates all the objects part of the game and positions them
+	 * appropiately
 	 */
 	private void createGame() {
 		int width = getFieldWidth();
@@ -384,7 +399,7 @@ public class Pong extends Game {
 
 		flashbang = new Flashbang(width, height);
 		glitch = new Glitch();
-		// necessary to add because it has animation 
+		// necessary to add because it has animation
 		add(flashbang.getAnimationLabel());
 		getContentPane().setComponentZOrder(flashbang.getAnimationLabel(), 0);
 
@@ -402,8 +417,8 @@ public class Pong extends Game {
 	}
 
 	/**
-	 * Moves the ball to the center of the screen and both players to the vertical
-	 * center of their sides. The paddles keep their x positions.
+	 * Moves the ball to the center of the screen and both players to the
+	 * vertical center of their sides. The paddles keep their x positions.
 	 */
 	private void resetPositions() {
 		b.setX(getFieldWidth() / 2 - b.getWidth() / 2);
@@ -431,7 +446,8 @@ public class Pong extends Game {
 	}
 
 	/**
-	 * Clears all powerups and resets all objects so they dont linger during pause
+	 * Clears all powerups and resets all objects so they dont linger during
+	 * pause
 	 */
 	private void resetAllEffects() {
 
@@ -474,8 +490,8 @@ public class Pong extends Game {
 	}
 
 	/**
-	 * P will pause and resumes while playing, returns to the menu after a win, and
-	 * does nothing on menu screen.
+	 * P will pause and resumes while playing, returns to the menu after a win,
+	 * and does nothing on menu screen.
 	 */
 	private void pauseKey() {
 		if (menu.isVisible()) {
@@ -510,7 +526,7 @@ public class Pong extends Game {
 		Pong game = new Pong();
 		game.setVisible(true);
 		game.initComponents();
-		//just in case to make sure the game resizes properly and is redrawn 
+		// just in case to make sure the game resizes properly and is redrawn
 		game.getContentPane().revalidate();
 		game.getContentPane().repaint();
 	}

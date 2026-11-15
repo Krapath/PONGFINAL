@@ -80,7 +80,7 @@ public abstract class Game extends JFrame {
 	/**
 	 * Returns <code>true</code> if the 'P' key is being pressed down
 	 * 
-	 * @return <code>true</code> if the "P" key is being pressed down
+	 * @return <code>true</code> if the 'P' key is being pressed down
 	 */
 	public boolean PKeyPressed() {
 		return pKey;

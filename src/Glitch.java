@@ -5,14 +5,17 @@
  */
 public class Glitch extends PowerUp {
     private static final int DURATION = 4000; // 4 seconds of inverted controls
-
+	
+    /**
+	 * Invert the players controls for a duration 
+	 */
     public Glitch() {
         super(DURATION, "SPRITES/Glitch.png"); // glitch icon
     }
 
     /**
      * Checks if a player is glitched
-     * @param player, the Player 1 or 2 who triggered the ability
+     * @param player the Player 1 or 2 who triggered the ability
      * @return true when the given players controls are inverted
      */
     public boolean isGlitched(int player) {
@@ -27,7 +30,7 @@ public class Glitch extends PowerUp {
 
     /**
      * Uses player bound ability and sound effect
-     * @param the Player 1 or 2 who triggered the ability
+     * @param user the Player 1 or 2 who triggered the ability
      */
     public void use(int user) {
         if (canUse(user)) {

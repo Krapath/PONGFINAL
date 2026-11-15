@@ -20,7 +20,7 @@ public class Pickup extends GameObject {
 	 * @param size        width and height of the orb in pixels
 	 * @param p           the power this orb gives
 	 * @param windowWidth  width of the playing field in pixels
-	 * @param windowWidth height of the playing field in pixels
+	 * @param windowHeight height of the playing field in pixels
 	 */
 	public Pickup(int size, PowerUp p, int windowWidth, int windowHeight) {
 		int s = size * windowHeight / REF_HEIGHT; // takes reference size and scales it
@@ -53,6 +53,7 @@ public class Pickup extends GameObject {
 
 	/**
 	 * Makes sure to draw the icons image which all powerups have
+	 * @param g the graphics object
 	 */
 	public void paint(Graphics g) {
 		g.drawImage(held.getIcon(), 0, 0, getWidth(), getHeight(), null);

@@ -32,7 +32,7 @@ public class MainMenu extends JPanel {
 	 *
 	 * @param windowWidth  the width of the game in pixels
 	 * @param windowHeight the height of the game in pixels
-	 * @param pong, the instance of the pong game
+	 * @param pong the instance of the pong game
 	 */
 	public MainMenu(int windowWidth, int windowHeight, Pong pong) {
 		game = pong;
@@ -124,7 +124,7 @@ public class MainMenu extends JPanel {
 	 * customized to be purely black background
 	 */
 	private void showInstructions() {
-		ImageIcon image = new ImageIcon("MENU/TutorialHelp.png");
+		ImageIcon image = new ImageIcon("MENU/TutorialReal.png");
 		JLabel howTo = new JLabel(image);
 		UIManager.put("OptionPane.background", Color.BLACK);
 		UIManager.put("Panel.background", Color.BLACK);

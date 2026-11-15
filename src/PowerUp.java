@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * November 7, 2026
  * Timed ability with a duration in milliseconds, runs on its own timers, so
  * nothing in game needs to call it every frame. Each power also has an icon,
- * which is import for the pickup orbs abilities can either belong to a player
+ * which is important for the pickup orbs abilities can either belong to a player
  * (use the methods that take a user) or be global and affect the whole game
  * (use the methods without a user). 
  */
@@ -43,7 +43,7 @@ public abstract class PowerUp {
 	 * Create an ability with a duration and icon.
 	 *
 	 * @param maxDur   how long the ability lasts, in milliseconds
-	 * @param iconFile file path of the picture shown on the pickup
+	 * @param iconFile file name of the picture shown on the pickup
 	 */
 	public PowerUp(int maxDur, String iconFile) {
 		maxDuration = maxDur;
@@ -58,7 +58,7 @@ public abstract class PowerUp {
 	}
 
 	/**
-	 * @return The animation label used for specific powerup
+	 * @return the animation label used for specific powerup
 	 */
 	public JLabel getAnimationLabel() {
 		return animationLabel;
@@ -66,8 +66,8 @@ public abstract class PowerUp {
 
 	/**
 	 * 
-	 * @param The icon of the given animation label
-	 * @return The flipped animation icon
+	 * @param animationIcon the icon of the given animation label
+	 * @return the flipped animation icon
 	 */
 	protected ImageIcon flipHorizontally(ImageIcon animationIcon) {
 		int w = animationIcon.getIconWidth();
@@ -146,6 +146,7 @@ public abstract class PowerUp {
 	}
 
 	// Global abilities, they affect the whole game and have no user 
+	
 	/**
 	 * @return true if the global ability is currently active.
 	 */

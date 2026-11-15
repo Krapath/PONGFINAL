@@ -70,8 +70,7 @@ public class DisplayGUI extends JPanel {
 	}
 
 	/**
-	 * Hides the winner message(not used right now because game stops when someone
-	 * wins)
+	 * Hides the popUp image message
 	 */
 	public void hidePopup() {
 		popUpLabel.setVisible(false);

@@ -26,9 +26,9 @@ public class TimeStop extends PowerUp {
 	 * Unleash the true power of The World to stop time against your opponent!
 	 * Momentarily slows the ball as well (for balancing purposes)
 	 * 
-	 * @param locationX
-	 * @param locationY
-	 * @param user
+	 * @param windowWidth  the width of the playing field in pixels
+	 * @param windowHeight the height of the playing field in pixels
+	 * @param pickUpSize the size of the pickup to scale animation
 	 */
 	public TimeStop(int windowWidth, int windowHeight, int pickUpSize) {
 		super(DURATION, "SPRITES/ClockPowerup.gif");
@@ -54,7 +54,8 @@ public class TimeStop extends PowerUp {
 	}
 
 	/**
-	 * @return the player that is being frozen
+	 * @param player the Player 1 or 2, who triggered the ability
+	 * @return true if the opposing player is frozen
 	 */
 	public boolean isFrozen(int player) {
 		if (player == 1) {
@@ -68,7 +69,7 @@ public class TimeStop extends PowerUp {
 
 	/**
 	 * Runs when the player uses the ability. Handles frame animation
-	 * @param user, the Player 1 or 2 who triggered the ability
+	 * @param user the Player 1 or 2 who triggered the ability
 	 * @param x the x location of the pickup
 	 * @param y the y location of the pickup
 	 */

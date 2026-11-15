@@ -35,7 +35,8 @@ public class Barrier extends GameObject {
 	}
 
 	/**
-	 * @return The state of if barrier is shielded, which triggers deflection mechanic
+	 * @return The state of if barrier is shielded, which triggers deflection
+	 *         mechanic
 	 */
 	public boolean getShielded() {
 		return shielded;

@@ -46,7 +46,6 @@ public class Flashbang extends PowerUp {
 	 * must answer for the global state.
 	 *
 	 * @param user the player who touched the pickup, 1 or 2
-	 * @return true if no flashbang is currently active
 	 */
 	public void use(int user) {
 		if (canUse()) {

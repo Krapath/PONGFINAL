@@ -17,7 +17,7 @@ public class BigPaddle extends PowerUp {
 	}
 
 	/**
-	 * @param player, the player indicated by 1 or 2
+	 * @param player the player indicated by 1 or 2
 	 * @return true if a paddle is currently enlarged.
 	 */
 	public boolean isEnlarged(int player) {

@@ -19,7 +19,7 @@ public class Shield extends PowerUp {
 
 	
 	/**
-	 * @return if a paddle is currently shielded .
+	 * @return true if a paddle is currently shielded .
 	 * @param player the Player 1 or 2 who triggered the ability
 	 */
 	public boolean isShielded(int player) {

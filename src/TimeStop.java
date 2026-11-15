@@ -23,7 +23,7 @@ public class TimeStop extends PowerUp {
 	private boolean animating = false;
 
 	/**
-	 * Unleash the true power of The World to stop time against your opponent!
+	 * Unleash the true power of The World(Jojo's Bizarre Adventure) to stop time against your opponent!
 	 * Momentarily slows the ball as well (for balancing purposes)
 	 * 
 	 * @param windowWidth  the width of the playing field in pixels
@@ -82,7 +82,6 @@ public class TimeStop extends PowerUp {
 			int h = frames[0].getIconHeight();
 			animationLabel.setBounds(x - w / 2, y - h / 2, w, h);
 			animationLabel.setVisible(true);
-			// SoundEffects.play("SFX/TheWorld.wav", -20f); //maybe keep, maybe add
 
 			// show each sprite in turn
 			for (int i = 0; i < frames.length; i++) {
@@ -107,7 +106,7 @@ public class TimeStop extends PowerUp {
 	}
 
 	/**
-	 * Overloaded endPower method to ensure animation does not continue
+	 * Overridden endPower method to ensure animation does not continue
 	 */
 	public void endPower() {
 		super.endPower();

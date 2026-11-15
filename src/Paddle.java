@@ -6,7 +6,7 @@
  */
 public class Paddle extends GameObject {
 
-	// Symbolic constants 
+	// Symbolic constants
 
 	private static final int REF_WIDTH = 1600; // the screen size the pixel values are written for
 	private static final int REF_HEIGHT = 900;
@@ -30,11 +30,12 @@ public class Paddle extends GameObject {
 	}
 
 	/**
-	 * Creates an idle paddle of the provided size, with scaled speed and size values
+	 * Creates an idle paddle of the provided size, with scaled speed and size
+	 * values
 	 *
-	 * @param w the width of the paddle in pixels
-	 * @param h the height of the paddle in pixels
-	 * @param windowWidth how wide the game window is 
+	 * @param w            the width of the paddle in pixels
+	 * @param h            the height of the paddle in pixels
+	 * @param windowWidth  how wide the game window is
 	 * @param windowHeight how tall the game window is
 	 */
 	public Paddle(int w, int h, int windowWidth, int windowHeight) {
@@ -105,7 +106,7 @@ public class Paddle extends GameObject {
 	}
 
 	/**
-	 * @return PaddleState, what the paddle is doing in the current frame. 
+	 * @return PaddleState, what the paddle is doing in the current frame.
 	 */
 	public PaddleState getState() {
 		return state;
@@ -135,12 +136,14 @@ public class Paddle extends GameObject {
 			target = ENLARGED_SCALE * SHRUNK_SCALE;
 		}
 
-		// ease the current scale toward the target rather than instantly change size.
-		// Additionally, by having the scale be a constantly updating value, it
-		// scales nonlinearly, making it more smooth. sizeScale will always be locked to
-		// target. This method also allows sizeScale to work in both the positive and
-		// negative direction. For example, target is 0.5, 1 += (0.5-1)*EASE, the right
-		// side ends up being negative and size scale still decreases.
+		/*
+		 * Ease the current scale toward the target rather than instantly change size.
+		 * Additionally, by having the scale be a constantly updating value, it scales
+		 * nonlinearly, making it more smooth. sizeScale will always be locked to
+		 * target. This method also allows sizeScale to work in both the positive and
+		 * negative direction. For example, target is 0.5, 1 += (0.5-1)*EASE, the right
+		 * side ends up being negative and size scale still decreases.
+		 */
 		sizeScale += (target - sizeScale) * EASE;
 
 		// save the old center x and center y so that even after resize it remains the

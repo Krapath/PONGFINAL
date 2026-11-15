@@ -8,16 +8,17 @@ import javax.swing.Timer;
 import java.util.ArrayList;
 
 /**
- * Author: Hugo To
+ * Author: Hugo To 
  * November 7, 2026
- * Timed ability with a duration in milliseconds, runs on its own timers, so
- * nothing in game needs to call it every frame. Each power also has an icon,
- * which is important for the pickup orbs abilities can either belong to a player
- * (use the methods that take a user) or be global and affect the whole game
- * (use the methods without a user). 
+ * Timed ability with a duration in
+ * milliseconds, runs on its own timers, so nothing in game needs to call it
+ * every frame. Each power also has an icon, which is important for the pickup
+ * orbs. Abilities can either belong to a player (use the methods that take a
+ * user) or be global and affect the whole game (use the methods without a
+ * user).
  */
 
-//While there are no shared abstract methods, the class is abstract in nature, meaning that it should not be instantiated as its own object
+// while there are no shared abstract methods, the class is abstract in nature, meaning that it should not be instantiated as its own object
 public abstract class PowerUp {
 
 	private static final int PLAYERS = 2;
@@ -145,8 +146,8 @@ public abstract class PowerUp {
 
 	}
 
-	// Global abilities, they affect the whole game and have no user 
-	
+	// Global abilities, they affect the whole game and have no user
+
 	/**
 	 * @return true if the global ability is currently active.
 	 */
@@ -176,9 +177,8 @@ public abstract class PowerUp {
 	}
 
 	/**
-	 * Ends the power by making all powers inactive
-	 * Clears and removes all power timers from list
-	 * Ends all animations of powerups
+	 * Ends the power by making all powers inactive Clears and removes all power
+	 * timers from list Ends all animations of powerups
 	 */
 	public void endPower() {
 		for (int i = 0; i < isActive.length; i++) {
@@ -199,7 +199,8 @@ public abstract class PowerUp {
 	}
 
 	/**
-	 * Called when a global ability duration ends, designed to be overloaded by child classes
+	 * Called when a global ability duration ends, designed to be overriden by
+	 * child classes
 	 */
 	public void onDurationEnd() {
 
@@ -215,13 +216,13 @@ public abstract class PowerUp {
 	public void delay(int ms, Runnable action) {
 		Timer t = new Timer(ms, null);
 
-		// in order to make sure we can remove the timer, we need to add the action
-		// listener AFTER it is initialized so it can make a reference to itself to
-		// remove from the arraylist
-		// the importance of removing timer is that otherwise a new timer object that is
-		// will be created and never garbaged collected
-		// lambda expression because actionlistener is a functional interface
-		
+		/*
+		 * in order to make sure we can remove the timer, we need to add the action
+		 * listener AFTER it is initialized so it can make a reference to itself to
+		 * remove from the arraylist the importance of removing timer is that otherwise
+		 * a new timer object that is will be created and never garbaged collected
+		 * lambda expression because actionlistener is a functional interface
+		 */
 		t.addActionListener((e) -> {
 			timers.remove(t);
 			action.run();

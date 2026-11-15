@@ -32,7 +32,7 @@ public class MainMenu extends JPanel {
 	 *
 	 * @param windowWidth  the width of the game in pixels
 	 * @param windowHeight the height of the game in pixels
-	 * @param pong the instance of the pong game
+	 * @param pong         the instance of the pong game
 	 */
 	public MainMenu(int windowWidth, int windowHeight, Pong pong) {
 		game = pong;
@@ -88,23 +88,23 @@ public class MainMenu extends JPanel {
 		add(exitButton);
 		add(logo);
 
-		// Utilizes a lambda expression because action listener is a functional
-		// interface!
-		// A functional interface means it only has one abstract method so java knows
-		// what method to refer to, allowing you use a lambda expression which omits
-		// much of the unnecessary clutter that anonymous classes use.
+		/*
+		 * Uses a lambda expression because action listener is a functional interface
+		 * (it only has a single abstract method), which allows means you can omit the
+		 * unnecessary code required by anonymous inner classes.
+		 */
 		playButton.addActionListener((e) -> {
 			startGame();
-			SoundEffects.play("SFX/CLICK.wav", SOUND_VOLUME); 
+			SoundEffects.play("SFX/CLICK.wav", SOUND_VOLUME);
 		});
 
 		instructionsButton.addActionListener((e) -> {
-			SoundEffects.play("SFX/CLICK.wav", SOUND_VOLUME); 
+			SoundEffects.play("SFX/CLICK.wav", SOUND_VOLUME);
 			showInstructions();
 		});
 
 		exitButton.addActionListener((e) -> {
-			SoundEffects.play("SFX/CLICK.wav", SOUND_VOLUME); 
+			SoundEffects.play("SFX/CLICK.wav", SOUND_VOLUME);
 			System.exit(0);
 		});
 
@@ -129,7 +129,7 @@ public class MainMenu extends JPanel {
 		UIManager.put("OptionPane.background", Color.BLACK);
 		UIManager.put("Panel.background", Color.BLACK);
 		JOptionPane.showMessageDialog(null, howTo, "Instructions", JOptionPane.PLAIN_MESSAGE);
-		
+
 	}
 
 	/**

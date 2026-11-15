@@ -1,12 +1,11 @@
 import java.awt.Graphics;
 import java.util.Random;
 
-
 /**
- * Author: Hugo To
- * November 7, 2026
- * An orb that exists only while it is on the field. It carries one power and
- * picks a random spot when created.
+ * Author: Hugo To 
+ * November 7, 2026 
+ * An orb that exists only while it is on the
+ * field. It carries one power and picks a random spot when created.
  */
 public class Pickup extends GameObject {
 
@@ -17,8 +16,8 @@ public class Pickup extends GameObject {
 	/**
 	 * Makes an orb at a random spot in the middle half of the field.
 	 *
-	 * @param size        width and height of the orb in pixels
-	 * @param p           the power this orb gives
+	 * @param size         width and height of the orb in pixels
+	 * @param p            the power this orb gives
 	 * @param windowWidth  width of the playing field in pixels
 	 * @param windowHeight height of the playing field in pixels
 	 */
@@ -45,14 +44,17 @@ public class Pickup extends GameObject {
 	 * @param user the player who collected it, 1 or 2
 	 */
 	public void use(int user) {
-		// for powers that do not require x and y, this still works because the use
-		// method simply recalls the no args use method, this way it allows powerups
-		// that required x and y to use them, but ones that do not, are still unaffected
+		/*
+		 * For powers that do not require x and y, this still works because the use
+		 * method simply recalls the no args use method, this way it allows powerups
+		 * that required x and y to use them, but ones that do not, are still unaffected
+		 */
 		held.use(user, getX() + getWidth() / 2, getY() + getHeight() / 2);
 	}
 
 	/**
 	 * Makes sure to draw the icons image which all powerups have
+	 * 
 	 * @param g the graphics object
 	 */
 	public void paint(Graphics g) {

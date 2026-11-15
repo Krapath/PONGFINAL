@@ -36,9 +36,9 @@ public class Ball extends GameObject {
 	/**
 	 * Makes a yellow ball of the given size, heading right at the normal speed.
 	 *
-	 * @param w how wide the ball is, in pixels
-	 * @param h how tall the ball is, in pixels
-	 * @param windowWidth how wide the game window is 
+	 * @param w            how wide the ball is, in pixels
+	 * @param h            how tall the ball is, in pixels
+	 * @param windowWidth  how wide the game window is
 	 * @param windowHeight how tall the game window is
 	 */
 	public Ball(int w, int h, int windowWidth, int windowHeight) {
@@ -51,6 +51,7 @@ public class Ball extends GameObject {
 	/**
 	 * Sets the slowed state of the ball which causes it to ease down to slow speed
 	 * (true) or back up to normal speed (false).
+	 * 
 	 * @param s boolean value that comes from a powerup
 	 */
 	public void setSlowed(boolean s) {
@@ -59,6 +60,7 @@ public class Ball extends GameObject {
 
 	/**
 	 * Gives an integer value that indicates the owner of the ball
+	 * 
 	 * @return 1, 2 or 0, signifying player 1, 2, or no one
 	 */
 	public int getOwner() {
@@ -112,8 +114,8 @@ public class Ball extends GameObject {
 	 */
 	public void bounceRight(int paddleY, int paddleHeight, Paddle.PaddleState paddleState) {
 		ownership = 1;
-		dx = Math.min(Math.abs(dx) + REFLECTION_BONUS, MAX_SPEED); // ensure the ball moves to the right and speed
-		SoundEffects.play("SFX/bounce.wav", SOUND_VOLUME); 
+		dx = Math.min(Math.abs(dx) + REFLECTION_BONUS, MAX_SPEED); // ensure the ball moves to the right and speeds up
+		SoundEffects.play("SFX/bounce.wav", SOUND_VOLUME);
 		bouncePhysics(paddleY, paddleHeight, paddleState);
 
 	}
@@ -126,7 +128,7 @@ public class Ball extends GameObject {
 			ownership = 0;
 			dx = -dx;
 			dy = -dy;
-			// deflect sfx is much quieter so only half as quiet
+			// deflect sfx sound is quiet, so play it at half the reduction
 			SoundEffects.play("SFX/Parry.wav", SOUND_VOLUME / 2);
 		}
 	}
@@ -155,7 +157,7 @@ public class Ball extends GameObject {
 	 */
 	public void bounceLeft(int paddleY, int paddleHeight, Paddle.PaddleState paddleState) {
 		ownership = 2;
-		dx = -Math.min(Math.abs(dx) + REFLECTION_BONUS, MAX_SPEED); // ensure the ball moves to the left and speed
+		dx = -Math.min(Math.abs(dx) + REFLECTION_BONUS, MAX_SPEED); // ensure the ball moves to the left and speeds up
 		SoundEffects.play("SFX/bounce.wav", SOUND_VOLUME); // capped, increment speed
 
 		bouncePhysics(paddleY, paddleHeight, paddleState);
@@ -225,7 +227,7 @@ public class Ball extends GameObject {
 		int moveY = (int) exactMoveY;
 		xLeftover = exactMoveX - moveX;
 		yLeftover = exactMoveY - moveY;
-		
+
 		setX(getX() + moveX);
 		setY(getY() + moveY);
 

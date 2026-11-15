@@ -238,8 +238,8 @@ public abstract class Game extends JFrame {
 
 
         
-        // Changed old timer method to use lambda expression for more efficiency
-       _t = new Timer(1, e_-> {
+        // changed old timer method to use lambda expression for conciseness
+       _t = new Timer(1, (e)-> {
    				act();
    				for (int i = 0; i < _ObjectList.size(); i++) {
    					GameObject o = (GameObject)_ObjectList.get(i);

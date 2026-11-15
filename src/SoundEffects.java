@@ -3,15 +3,16 @@ import java.io.*;
 import javax.sound.sampled.*;
 
 /**
- * Author: Hugo To
- * November 7, 2026
- * The sound effects that play throughout the game 
+ * Author: Hugo To 
+ * November 7, 2026 
+ * The sound effects that play throughout the game
  */
 public class SoundEffects {
 
 	/**
+	 * Plays the audio file based on the name at the given sound value
 	 * @param fileName the name of the audio file
-	 * @param volume the volume of the audio file
+	 * @param volume   the volume of the audio file
 	 */
 	public static void play(String fileName, float volume) {
 		// use try to make sure that it closes
@@ -39,9 +40,10 @@ public class SoundEffects {
 	}
 
 	/**
-	 * To prevent lag/ prevent it from being noticeable, run the sound effect system
-	 * immediately to prevent it affecting user experience, could load all the audio
-	 * files but figured this would be easier and less messy as it might affect visibility
+	 * To prevent lag/ prevent it from being noticeable, run the sound effect class
+	 * immediately to prevent it from being loaded at a time that could affect the
+	 * game, could load all the audio files but figured this would be easier and
+	 * less messy as it might affect visibility of the files
 	 */
 	public static void loadAudioSystem() {
 		try {

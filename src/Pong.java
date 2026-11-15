@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Author: Hugo To November 15, 2026 The main driver class, everything is
+ * Author: Hugo To 
+ * November 15, 2026 
+ * The main driver class, everything is
  * contained within this class, it extends the game class. Contains a ball, two
  * paddles, and GUI element. Handles general logic like bounds of ball and
  * paddle, winning condition etc.
- * Credits to "A Clockwork Orange" Project, Bro Code, many sta
+ * Credits to "A Clockwork Orange" Project, Bro Code, many stack overflow forums
  */
 
 public class Pong extends Game {
@@ -34,7 +36,7 @@ public class Pong extends Game {
 	private static final int SCORE_DELAY = 60; // roughly 1.5 second delay
 	private static final int INDEFINITE = -1;
 	private static final int SPAWN_ODDS = 10; // 1 in 10 each frame, so about
-												// 0.2 seconds to spawn, intentionally fast
+												// 0.25 seconds to spawn, intentionally fast
 	private static final int PICKUP_SIZE = 75;
 	private static final int WINNER_FONT_SIZE = 50;
 	private static final int MESSAGE_HIDE_FRAMES = 8;
@@ -66,7 +68,7 @@ public class Pong extends Game {
 	private int p1Score = 0;
 	private int p2Score = 0;
 	private DisplayGUI display;
-	private TimeStop theWorld;
+	private TimeStop timeStop;
 	private BigPaddle bigPaddle;
 	private Shield shield;
 	private Flashbang flashbang;
@@ -240,9 +242,9 @@ public class Pong extends Game {
 	 * 
 	 * The ball is set to serve toward the player who just lost the point, the score
 	 * board is updated, and the ball and paddles are moved back to the center,
-	 * pausing for a slight moment. If the player has now reaches winning score
+	 * pausing for a slight moment. If the player has now reached winning score
 	 * and is two points ahead, the winner message is shown, and the game is
-	 * stopped. Otherwise the game goes into tie breaker, where the opponnents must
+	 * stopped. Otherwise the game goes into tie breaker, where the opponents must
 	 * win by two.
 	 *
 	 * @param player the player who scored, represented as an integer
@@ -281,7 +283,7 @@ public class Pong extends Game {
 		display.updateScore(p1Score, p2Score);
 		resetPositions();
 		resetAllEffects();
-		/// winning conditions
+		// winning conditions
 		if (p1Score >= WINNING_SCORE && p1Score > p2Score + 1) {
 
 			// https://stackoverflow.com/questions/6635730/how-do-i-put-html-in-a-jlabel-in-java
@@ -334,7 +336,7 @@ public class Pong extends Game {
 	}
 
 	/**
-	 * Pauses the game indefinetely and hides all of the game elements
+	 * Pauses the game indefinitely and hides all of the game elements
 	 */
 	private void stop() {
 		pause(INDEFINITE);
@@ -350,8 +352,8 @@ public class Pong extends Game {
 	 */
 	public void start() {
 		resume();
+		// give focus back to the game, because clicking a button gives it to the button
 		setFocusable(true);
-		// IN ORDER
 		// https://stackoverflow.com/questions/31971277/button-remains-focused-after-clicking
 		requestFocusInWindow();
 		p1.setVisible(true);
@@ -386,9 +388,9 @@ public class Pong extends Game {
 		display = new DisplayGUI(width, height);
 		add(display);
 
-		theWorld = new TimeStop(width, height, PICKUP_SIZE);
+		timeStop = new TimeStop(width, height, PICKUP_SIZE);
 		// only necessary to add timestop label because it has an animation
-		add(theWorld.getAnimationLabel());
+		add(timeStop.getAnimationLabel());
 
 		bigPaddle = new BigPaddle();
 		smallPaddle = new SmallPaddle();
@@ -400,7 +402,7 @@ public class Pong extends Game {
 		add(flashbang.getAnimationLabel());
 		getContentPane().setComponentZOrder(flashbang.getAnimationLabel(), 0);
 
-		powers = new PowerUp[] { glitch, theWorld, flashbang, bigPaddle, shield, smallPaddle };
+		powers = new PowerUp[] { glitch, timeStop, flashbang, bigPaddle, shield, smallPaddle };
 
 		resetPositions();
 
@@ -429,10 +431,10 @@ public class Pong extends Game {
 	 * Runs all powerups and related effects if possible
 	 */
 	private void runAllEffects() {
-		b.setSlowed(theWorld.isTimeSlowed());
+		b.setSlowed(timeStop.isTimeSlowed());
 
-		p1.setFrozen(theWorld.isFrozen(1));
-		p2.setFrozen(theWorld.isFrozen(2));
+		p1.setFrozen(timeStop.isFrozen(1));
+		p2.setFrozen(timeStop.isFrozen(2));
 
 		p1.setEnlarged(bigPaddle.isEnlarged(1));
 		p2.setEnlarged(bigPaddle.isEnlarged(2));

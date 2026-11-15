@@ -33,7 +33,7 @@ public class Barrier extends GameObject {
 		shielded = s;
 		setVisible(s); // the barrier is only drawn while shielded
 	}
-
+	
 	/**
 	 * @return The state of if barrier is shielded, which triggers deflection
 	 *         mechanic

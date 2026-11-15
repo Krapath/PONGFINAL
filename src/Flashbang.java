@@ -2,8 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Author: Hugo To November 10, 2026 Global ability that blinds the entire
- * screen for a duration
+ * Author: Hugo To 
+ * November 10, 2026 
+ * Global ability that blinds the entire screen for a duration
  */
 public class Flashbang extends PowerUp {
 	private static final int HOLD_MS = 1000; // how long it stays fully white
@@ -25,11 +26,12 @@ public class Flashbang extends PowerUp {
 		Image white = new ImageIcon(new ImageIcon("SPRITES/WHITE_RECTANGLE.png").getImage()
 				.getScaledInstance(windowWidth, windowHeight, Image.SCALE_SMOOTH)).getImage();
 
-		// create a label draws the white image with the opacity
-		// utilzes an anonymous class to change JLabel internal method for drawing
-		// uniquely an anonymous class rather than lambda because it has multiple
-		// methods, and also to reduce the need to creating an entire new class for
-		// small thing
+		/*
+		 * create a label draws the white image with the opacity utilzes an anonymous
+		 * class to change JLabel internal method for drawing uniquely an anonymous
+		 * class rather than lambda because it has multiple methods, and also to reduce
+		 * the need to creating an entire new class for small thing
+		 */
 		animationLabel = new JLabel() {
 			protected void paintComponent(Graphics g) {
 				((Graphics2D) g).setComposite(AlphaComposite.SrcOver.derive(opacity));
@@ -56,17 +58,19 @@ public class Flashbang extends PowerUp {
 	}
 
 	/**
-	 * Global ability, so it ignores which player collected it, and uses global states.
+	 * Global ability, so it ignores which player collected it, and uses global
+	 * states.
 	 *
 	 * @param user the player who triggers the ability, 1 or 2
+	 * @return true if the global ability can be used
 	 */
 	public boolean canUse(int user) {
 		return canUse();
 	}
 
 	/**
-	 * Shows the white image, keep it for a duration, then begins to fade then fades
-	 * it out, all with one timer.
+	 * Shows white image, stays for a duration, then begins to fade then fades
+	 * it out.
 	 */
 	public void startFlash() {
 		opacity = 1f;

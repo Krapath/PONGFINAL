@@ -29,7 +29,7 @@ public class Shield extends PowerUp {
 
 	/**
 	 * Uses ability and plays sfx courtesy of Kingdom Rush 
-	 * @param user the Player 1, or 2 who triggers the ability
+	 * @param user the Player 1 or 2 who triggers the ability
 	 */
 	public void use(int user) {
 		if (canUse(user)) {

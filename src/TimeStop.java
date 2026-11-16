@@ -23,7 +23,7 @@ public class TimeStop extends PowerUp {
 	private boolean animating = false;
 
 	/**
-	 * Unleash the true power of The World(Jojo's Bizarre Adventure) to stop time against your opponent!
+	 * Unleash the true power of The World (Jojo's Bizarre Adventure) to stop time against your opponent!
 	 * Momentarily slows the ball as well (for balancing purposes)
 	 * 
 	 * @param windowWidth  the width of the playing field in pixels

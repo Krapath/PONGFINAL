@@ -90,8 +90,8 @@ public class MainMenu extends JPanel {
 
 		/*
 		 * Uses a lambda expression because action listener is a functional interface
-		 * (it only has a single abstract method), which allows means you can omit the
-		 * unnecessary code required by anonymous inner classes.
+		 * (it only has a single abstract method), which  means you can omit the
+		 * unnecessary code required by anonymous inner classes, easier to read.
 		 */
 		playButton.addActionListener((e) -> {
 			startGame();

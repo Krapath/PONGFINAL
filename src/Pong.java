@@ -16,7 +16,9 @@ import java.util.Random;
  * contained within this class, it extends the game class. Contains a ball, two
  * paddles, and GUI element. Handles general logic like bounds of ball and
  * paddle, winning condition etc.
- * Credits to "A Clockwork Orange" Project, Bro Code, many stack overflow forums
+ * Credits to "A Clockwork Orange" Project(mainly for sfx and general ui elements), 
+ * Bro Code(for lambda expressions and anonymous classes), 
+ * and many stack overflow forums.
  */
 
 public class Pong extends Game {

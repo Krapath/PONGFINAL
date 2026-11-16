@@ -177,8 +177,8 @@ public abstract class PowerUp {
 	}
 
 	/**
-	 * Ends the power by making all powers inactive Clears and removes all power
-	 * timers from list Ends all animations of powerups
+	 * Ends the power by making all powers inactive, clears and removes all power
+	 * timers from list and ends all animations of powerups.
 	 */
 	public void endPower() {
 		for (int i = 0; i < isActive.length; i++) {

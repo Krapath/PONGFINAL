@@ -10,7 +10,7 @@ import javax.sound.sampled.*;
 public class SoundEffects {
 
 	/**
-	 * Plays the audio file based on the name at the given sound value
+	 * Plays the audio file based on the name at the given sound value, static so methods can be used without an object
 	 * @param fileName the name of the audio file
 	 * @param volume   the volume of the audio file
 	 */

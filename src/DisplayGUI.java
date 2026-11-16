@@ -70,7 +70,7 @@ public class DisplayGUI extends JPanel {
 	}
 
 	/**
-	 * Hides the popUp image message
+	 * Hides the popUp text message
 	 */
 	public void hidePopup() {
 		popUpLabel.setVisible(false);

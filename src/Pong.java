@@ -18,7 +18,7 @@ import java.util.Random;
  * paddle, winning condition etc.
  * Credits to "A Clockwork Orange" Project(mainly for sfx and general ui elements), 
  * Bro Code(for lambda expressions and anonymous classes), 
- * and many stack overflow forums.
+ * and many stack overflow forums for additional help.
  */
 
 public class Pong extends Game {

@@ -124,7 +124,7 @@ public class MainMenu extends JPanel {
 	 * customized to be purely black background
 	 */
 	private void showInstructions() {
-		ImageIcon image = new ImageIcon("MENU/TutorialReal.png");
+		ImageIcon image = new ImageIcon("MENU/TutorialTextReal.png");
 		JLabel howTo = new JLabel(image);
 		UIManager.put("OptionPane.background", Color.BLACK);
 		UIManager.put("Panel.background", Color.BLACK);
